@@ -95,11 +95,19 @@
           <p class="pid-eyebrow">Методология</p>
           <h2>Не просто программа — подход</h2>
         </div>
-        <div class="pid-method-text" id="pidMethodText">
-          <div class="pid-method-line">Система строится на цифровой модели объекта:</div>
-          <div class="pid-method-line">все локации — <em>участки, очереди, корпусы, секции, этажи</em></div>
-          <div class="pid-method-line">увязаны с <em>классификатором работ, этапами проверок Госстройнадзора, типами материалов, актами и участниками процесса</em>.</div>
-          <div class="pid-method-line">Каждое действие привязано к конкретному месту в конкретном здании — поэтому документ формируется автоматически, а не собирается вручную.</div>
+        <div class="pid-method-body" id="pidMethodBody">
+          <div class="pid-method-lead" id="pidMethodLead">
+            <div class="pid-method-line">Каждое действие привязано к конкретному месту в конкретном здании — поэтому документ формируется автоматически, а не собирается вручную.</div>
+          </div>
+          <div class="pid-method-divider"><span class="pid-method-divider-mark" aria-hidden="true">+</span></div>
+          <div class="pid-method-columns" id="pidMethodColumns">
+            <div class="pid-method-col">
+              <p>Система строится на цифровой модели объекта: все локации — <em>участки, очереди, корпусы, секции, этажи</em></p>
+            </div>
+            <div class="pid-method-col">
+              <p>Локации увязаны с <em>классификатором работ, этапами проверок Госстройнадзора, типами материалов, актами и участниками процесса</em>.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -271,22 +279,162 @@
     </div>
   </section>
 
-  <section class="pid-section">
-    <div class="wrap">
-      <div class="pid-section-head">
-        <p class="pid-eyebrow">Как это работает</p>
-        <h2>Восемь шагов от справочника до проверки</h2>
-      </div>
-      <div class="pid-steps-list" id="pidSteps">
-        <div class="pid-steps-track"><div class="pid-steps-fill" id="pidStepsFill"></div></div>
-        <div class="pid-step"><span class="pid-step-dot">1</span><h4>Выбор справочника</h4><p>Системный или индивидуальный — под структуру конкретного объекта.</p></div>
-        <div class="pid-step"><span class="pid-step-dot">2</span><h4>Добавление объекта</h4><p>Создаётся цифровая модель и план объекта.</p></div>
-        <div class="pid-step"><span class="pid-step-dot">3</span><h4>Настройка ролей</h4><p>Каждый участник получает доступ ровно к своей части процесса.</p></div>
-        <div class="pid-step"><span class="pid-step-dot">4</span><h4>Работа в шахматке</h4><p>Система подсказывает, что и когда нужно сделать.</p></div>
-        <div class="pid-step"><span class="pid-step-dot">5</span><h4>Формирование актов</h4><p>Автоматически, на основе выполненных работ.</p></div>
-        <div class="pid-step"><span class="pid-step-dot">6</span><h4>Согласование и подписание</h4><p>Цифровое согласование всеми участниками, подписание ЭП/МЧД.</p></div>
-        <div class="pid-step"><span class="pid-step-dot">7</span><h4>Сборка комплектов</h4><p>Для проверок — автоматически, по заданной структуре.</p></div>
-        <div class="pid-step"><span class="pid-step-dot">8</span><h4>Проверка Госстройнадзором</h4><p>Документы готовы к передаче без доработок.</p></div>
+  <section class="stack-section" id="pidStackSection">
+    <div class="stack-sticky">
+      <p class="stack-side stack-side-left">Восемь шагов<br>Один результат</p>
+      <p class="stack-side stack-side-right">От справочника<br>До проверки</p>
+
+      <div class="stack-wrap" id="pidStackWrap">
+        <article class="stack-card">
+          <div class="stack-content">
+            <div class="stack-header">
+              <span class="stack-eyebrow">Шаг 1</span>
+              <span class="stack-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H19a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H5.5A1.5 1.5 0 0 0 4 21.5V4.5z"/>
+                  <path d="M4 19.5A1.5 1.5 0 0 1 5.5 18H20"/>
+                </svg>
+              </span>
+            </div>
+            <div class="stack-text">
+              <h3>Выбор справочника</h3>
+              <p>Системный или индивидуальный — под структуру конкретного объекта.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="stack-card">
+          <div class="stack-content">
+            <div class="stack-header">
+              <span class="stack-eyebrow">Шаг 2</span>
+              <span class="stack-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <line x1="12" y1="8" x2="12" y2="16"/>
+                  <line x1="8" y1="12" x2="16" y2="12"/>
+                </svg>
+              </span>
+            </div>
+            <div class="stack-text">
+              <h3>Добавление объекта</h3>
+              <p>Создаётся цифровая модель и план объекта.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="stack-card">
+          <div class="stack-content">
+            <div class="stack-header">
+              <span class="stack-eyebrow">Шаг 3</span>
+              <span class="stack-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="8" cy="8" r="3"/>
+                  <circle cx="16" cy="8" r="3"/>
+                  <path d="M2 20c0-3 2.5-5 6-5s6 2 6 5"/>
+                  <path d="M10 20c0-3 2.5-5 6-5s6 2 6 5"/>
+                </svg>
+              </span>
+            </div>
+            <div class="stack-text">
+              <h3>Настройка ролей</h3>
+              <p>Каждый участник получает доступ ровно к своей части процесса.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="stack-card">
+          <div class="stack-content">
+            <div class="stack-header">
+              <span class="stack-eyebrow">Шаг 4</span>
+              <span class="stack-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <line x1="3" y1="9" x2="21" y2="9"/>
+                  <line x1="3" y1="15" x2="21" y2="15"/>
+                  <line x1="9" y1="3" x2="9" y2="21"/>
+                  <line x1="15" y1="3" x2="15" y2="21"/>
+                </svg>
+              </span>
+            </div>
+            <div class="stack-text">
+              <h3>Работа в шахматке</h3>
+              <p>Система подсказывает, что и когда нужно сделать.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="stack-card">
+          <div class="stack-content">
+            <div class="stack-header">
+              <span class="stack-eyebrow">Шаг 5</span>
+              <span class="stack-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 3h7l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/>
+                  <path d="M14 3v4h4"/>
+                  <path d="M9 13l2 2 4-4"/>
+                </svg>
+              </span>
+            </div>
+            <div class="stack-text">
+              <h3>Формирование актов</h3>
+              <p>Автоматически, на основе выполненных работ.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="stack-card">
+          <div class="stack-content">
+            <div class="stack-header">
+              <span class="stack-eyebrow">Шаг 6</span>
+              <span class="stack-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 20h4l10-10a2.5 2.5 0 0 0-3.5-3.5L4 16v4z"/>
+                  <path d="M13 6.5l3.5 3.5"/>
+                </svg>
+              </span>
+            </div>
+            <div class="stack-text">
+              <h3>Согласование и подписание</h3>
+              <p>Цифровое согласование всеми участниками, подписание ЭП/МЧД.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="stack-card">
+          <div class="stack-content">
+            <div class="stack-header">
+              <span class="stack-eyebrow">Шаг 7</span>
+              <span class="stack-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/>
+                  <path d="M9 15l2 2 4-4"/>
+                </svg>
+              </span>
+            </div>
+            <div class="stack-text">
+              <h3>Сборка комплектов</h3>
+              <p>Для проверок — автоматически, по заданной структуре.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="stack-card">
+          <div class="stack-content">
+            <div class="stack-header">
+              <span class="stack-eyebrow">Шаг 8</span>
+              <span class="stack-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6l7-3z"/>
+                  <path d="M9 12l2.5 2.5L15 10"/>
+                </svg>
+              </span>
+            </div>
+            <div class="stack-text">
+              <h3>Проверка Госстройнадзором</h3>
+              <p>Документы готовы к передаче без доработок.</p>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -367,25 +515,91 @@
     </div>
   </section>
 
-  <section class="pid-section">
-    <div class="wrap">
-      <div class="pid-section-head">
-        <p class="pid-eyebrow">Состав</p>
-        <h2>Модули Praktis.ID</h2>
-      </div>
-      <div class="pid-modules-grid" id="pidModules">
-        <div class="pid-module-card">
-          <h4>Практис.НСИ</h4>
-          <p>Управление и хранение нормативно-справочной информации по проектам.</p>
+  <section class="pid-modules-section" id="pidModulesSection">
+    <div class="pid-modules-pin-wrap" id="pidModulesPinWrap">
+      <div class="pid-modules-pin">
+
+        <!-- Sits underneath the slide layer for the whole pin, revealed
+             as that layer moves out of the way at the very end — a
+             static stand-in for #pidCta below, matching its markup/
+             classes so the hand-off into the real section (once the
+             pin releases) reads as one continuous card, not a restart. -->
+        <div class="pid-modules-cta-preview" aria-hidden="true">
+          <div class="wrap">
+            <div class="pid-cta-card is-revealed">
+              <h2>Начните управлять документами эффективно</h2>
+              <span class="btn btn-accent">
+                <span class="btn-label">Перейти в сервис</span>
+                <span class="btn-icon">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.9241 6.61722C17.8757 6.50014 17.804 6.3904 17.7092 6.29502C17.7078 6.2936 17.7064 6.29219 17.705 6.29078C17.5242 6.11106 17.2751 6 17 6H7C6.44772 6 6 6.44772 6 7C6 7.55228 6.44772 8 7 8H14.5858L6.29289 16.2929C5.90237 16.6834 5.90237 17.3166 6.29289 17.7071C6.68342 18.0976 7.31658 18.0976 7.70711 17.7071L16 9.41421V17C16 17.5523 16.4477 18 17 18C17.5523 18 18 17.5523 18 17V7.00069C18 6.99969 18 6.998 18 6.997C17.9996 6.8625 17.9727 6.73425 17.9241 6.61722Z" fill="white"/>
+                  </svg>
+                </span>
+              </span>
+            </div>
+          </div>
         </div>
-        <div class="pid-module-card">
-          <h4>Практис.Объекты</h4>
-          <p>Формирование карточки объекта.</p>
+
+        <div class="pid-modules-slide" id="pidModulesSlide">
+          <div class="pid-modules-viewport">
+            <div class="pid-modules-track" id="pidModulesTrack">
+
+              <div class="pid-modules-head">
+                <p class="pid-eyebrow">Состав</p>
+                <h2>Модули Praktis.ID</h2>
+              </div>
+
+              <div class="pid-modules-card">
+                <div class="pid-modules-card-line" aria-hidden="true"></div>
+                <div class="pid-modules-card-inner">
+                  <div class="pid-modules-shot"><img src="screens/Справочники.png" alt="Интерфейс Практис.НСИ" loading="lazy"></div>
+                  <div class="pid-modules-caption">
+                    <h3>Практис.НСИ</h3>
+                    <p>Управление и хранение нормативно-справочной информации по проектам.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pid-modules-card">
+                <div class="pid-modules-card-line" aria-hidden="true"></div>
+                <div class="pid-modules-card-inner">
+                  <div class="pid-modules-shot"><img src="screens/Объекты.png" alt="Интерфейс Практис.Объекты" loading="lazy"></div>
+                  <div class="pid-modules-caption">
+                    <h3>Практис.Объекты</h3>
+                    <p>Формирование карточки объекта.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pid-modules-card">
+                <div class="pid-modules-card-line" aria-hidden="true"></div>
+                <div class="pid-modules-card-inner">
+                  <div class="pid-modules-shot"><img src="screens/ИД.png" alt="Интерфейс Praktis.ID" loading="lazy"></div>
+                  <div class="pid-modules-caption">
+                    <h3>Praktis.ID</h3>
+                    <p>Основной модуль формирования исполнительной документации.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pid-modules-card pid-modules-card--summary">
+                <div class="pid-modules-card-line" aria-hidden="true"></div>
+                <div class="pid-modules-card-inner">
+                  <div class="pid-modules-summary-item">
+                    <h3>Общая среда данных → повышение качества</h3>
+                    <p>Снижается количество расхождений и ошибок в справочной информации, структуре объекта и плана работ.</p>
+                  </div>
+                  <div class="pid-modules-summary-item">
+                    <h3>Упрощение интеграции</h3>
+                    <p>Сервисы получают справочные данные из единого источника.</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
-        <div class="pid-module-card">
-          <h4>Praktis.ID</h4>
-          <p>Основной модуль формирования исполнительной документации.</p>
-        </div>
+
       </div>
     </div>
   </section>

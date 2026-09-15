@@ -183,24 +183,23 @@ function revealStagger(container, selector, step) {
 if (!reduceMotion) {
   document.querySelectorAll(".pid-section-head").forEach(revealSingle);
 
-  /* Methodology: on desktop the section pins the paragraph mid-screen
-     (see .pid-method-pin-wrap's 220vh in CSS) and each word lights up
+  /* Methodology: on desktop the section pins the lead line mid-screen
+     (see .pid-method-pin-wrap's height in CSS) and each word lights up
      as its point in the text scrolls past — same continuous-progress
      read as the steps timeline's fill line below, applied to words
-     instead of a bar. The text is authored as four separate
-     .pid-method-line paragraphs (with <em> around the enumerated
-     phrases) — wrapWordsIn() walks each line's nodes so those stay
-     intact, only wrapping the actual word text in .pid-method-word
-     spans; words inside <em> end up nested inside it, so its accent+
-     italic color just cascades down normally. Wrapping happens
-     unconditionally (harmless on mobile/reduced-motion: with no
-     .is-lit rule outside the desktop+motion media query, wrapped
-     words render identically to plain text); the desktopMotion check
-     inside update() is what actually gates the scroll effect. */
+     instead of a bar. Only .pid-method-lead gets this treatment — the
+     two columns below the divider are separate, plain fade-in content
+     (see revealStagger call below). wrapWordsIn() walks the lead
+     line's nodes so it stays intact, only wrapping the actual word
+     text in .pid-method-word spans. Wrapping happens unconditionally
+     (harmless on mobile/reduced-motion: with no .is-lit rule outside
+     the desktop+motion media query, wrapped words render identically
+     to plain text); the desktopMotion check inside update() is what
+     actually gates the scroll effect. */
   (function () {
     const wrap = document.getElementById("pidMethodPinWrap");
-    const text = document.getElementById("pidMethodText");
-    if (!wrap || !text) return;
+    const lead = document.getElementById("pidMethodLead");
+    if (!wrap || !lead) return;
 
     function wrapWordsIn(el) {
       const found = [];
@@ -229,7 +228,7 @@ if (!reduceMotion) {
       return found;
     }
 
-    const lines = Array.from(text.querySelectorAll(".pid-method-line"));
+    const lines = Array.from(lead.querySelectorAll(".pid-method-line"));
     const wordEls = lines.flatMap(wrapWordsIn);
 
     const desktopMotion = window.matchMedia("(min-width: 901px) and (prefers-reduced-motion: no-preference)");
@@ -248,41 +247,229 @@ if (!reduceMotion) {
     window.addEventListener("resize", update);
   })();
 
+  /* Methodology columns: plain staggered fade-in, independent of the
+     word-lighting lead line above — same pattern as the compare/
+     feature/benefit cards below. */
+  revealStagger(document.getElementById("pidMethodColumns"), ".pid-method-col", 90);
+
   document.querySelectorAll(".pid-compare-col").forEach((col) => revealStagger(col, ".pid-compare-row", 70));
   revealStagger(document.getElementById("pidFeatures"), ".pid-feature-card", 80);
   revealStagger(document.getElementById("pidBenefits"), ".pid-benefit-card", 90);
-  revealStagger(document.getElementById("pidModules"), ".pid-module-card", 110);
   revealSingle(document.getElementById("pidCta"));
 
-  /* Steps timeline: each row reveals on its own as it scrolls in; the
-     connecting line separately tracks scroll continuously (viewport
-     centre's progress through the list) — lighter cousin of the
-     homepage path diagram's pin/pan, no scroll-jacking needed since
-     the list is short enough to just read top to bottom. */
-  document.querySelectorAll(".pid-step").forEach((step) => onVisible(step, () => step.classList.add("is-revealed"), 0.4));
+  /* Modules: on mobile/reduced-motion this is just a plain stacked
+     list (see the desktopMotion-gated pin/pan mechanic below for the
+     desktop version), so it gets the same one-shot stagger reveal as
+     everything else on the page. The outro/summary card is just the
+     last item in the same list here — no separate layer to reveal. */
+  revealStagger(document.getElementById("pidModulesTrack"), ".pid-modules-card", 110);
 
+  /* Modules showcase: verified against trionn.com's own live DOM twice
+     (inspecting real computed transforms, not guessing from
+     screenshots — see the second pass below for what changed).
+       1. Heading + one item per module + an outro card sit in a single
+          flex row panned left as a whole via one continuous translateX,
+          exactly like every other horizontal-scroll section on this
+          site.
+       2. Layered on top of that shared pan, each card ALSO runs its own
+          independent "rise from below" — translateY(RISE_PX) with its
+          divider line at scaleY:0, easing up to translateY(0)/scaleY:1
+          as that specific card's own on-screen position (its measured
+          rect left edge, not a 1/N slice of global progress) approaches
+          the front of the row. Cards that have already arrived don't
+          fade or reverse — they just keep riding the pan left off the
+          edge, same as trionn's.
+       3. What comes after the outro card is NOT a plain sticky release:
+          scrolling trionn well past where its own outro card settles
+          showed the "next act" sitting there the whole time as a
+          SEPARATE layer, static at its own position, only becoming
+          visible because the layer in front of it (the one we'd been
+          watching pan) slides away and stops covering it — genuine
+          spatial movement, not a fade. #pidModulesSlide is that front
+          layer here (it carries the section's own background too, so
+          the whole visible "screen" moves as one piece); #pidCta has a
+          static preview sitting behind it the whole time
+          (.pid-modules-cta-preview, see praktis-id.html/css) that this
+          reveals. Once revealed, the pin releases normally and the
+          real #pidCta section (identical markup) picks up from exactly
+          there — this mechanic doesn't need to know what that content
+          is, only that a preview of it exists behind the slide. */
   (function () {
-    const list = document.getElementById("pidSteps");
-    const fill = document.getElementById("pidStepsFill");
-    const steps = list ? Array.from(list.querySelectorAll(".pid-step")) : [];
-    if (!list || !fill || !steps.length) return;
+    const wrap = document.getElementById("pidModulesPinWrap");
+    const pin = wrap ? wrap.querySelector(".pid-modules-pin") : null;
+    const slide = document.getElementById("pidModulesSlide");
+    const viewport = slide ? slide.querySelector(".pid-modules-viewport") : null;
+    const track = document.getElementById("pidModulesTrack");
+    const head = track ? track.querySelector(".pid-modules-head") : null;
+    const cards = track ? Array.from(track.querySelectorAll(".pid-modules-card")) : [];
+    if (!wrap || !pin || !slide || !viewport || !track || !head || cards.length < 2) return;
 
-    function update() {
-      const rect = list.getBoundingClientRect();
-      const viewportMid = window.innerHeight / 2;
-      const start = rect.top - viewportMid;
-      const end = rect.bottom - viewportMid;
-      const total = end - start;
-      const progress = total > 0 ? Math.max(0, Math.min(1, -start / total)) : 0;
-      fill.style.height = `${progress * 100}%`;
-      steps.forEach((step, i) => {
-        const threshold = i / (steps.length - 1);
-        step.classList.toggle("is-active", progress >= threshold - 0.02);
+    const desktopMotion = window.matchMedia("(min-width: 901px) and (prefers-reduced-motion: no-preference)");
+
+    function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+    function remap(p, a, b) { return clamp((p - a) / (b - a), 0, 1); }
+    function smoothstep(t) { return t * t * (3 - 2 * t); }
+
+    function getProgress() {
+      const rect = wrap.getBoundingClientRect();
+      const total = rect.height - window.innerHeight;
+      return total > 0 ? clamp(-rect.top / total, 0, 1) : 0;
+    }
+
+    // Pixel geometry, not a guessed 1/N split of progress — measured
+    // fresh off the actually-rendered layout (responsive width, real
+    // gap) so the pan distance and each card's own rise window track
+    // reality instead of an assumed item width. Measured with the
+    // track untransformed, same rect-based approach used everywhere
+    // else on this site for "move by exactly one item".
+    let itemWidth = 0;
+    let restLeft = []; // each card's left edge relative to the viewport, at pan=0
+    let maxPan = 0;
+
+    function measure() {
+      track.style.transform = "";
+      const viewportLeft = viewport.getBoundingClientRect().left;
+      itemWidth = head.getBoundingClientRect().width;
+      restLeft = cards.map((c) => c.getBoundingClientRect().left - viewportLeft);
+      maxPan = restLeft[restLeft.length - 1];
+    }
+
+    const PAN_END = 0.75;
+    const SLIDE_START = 0.85;
+    const RISE_PX = 120;
+    // A card starts rising while its left edge is still over a full
+    // item-width away (i.e. it's not yet visible, or only just
+    // peeking in) and finishes shortly after it reaches the front —
+    // ratios read off trionn's own measured reveal window, which ran
+    // from roughly 1.9x to 0.55x its card width.
+    const START_RATIO = 1.35;
+    const END_RATIO = 0.2;
+
+    function updateCards(pan) {
+      const trackX = -pan * maxPan;
+      cards.forEach((card, i) => {
+        const inner = card.querySelector(".pid-modules-card-inner");
+        const line = card.querySelector(".pid-modules-card-line");
+        let t;
+        if (i === 0) {
+          t = 1; // already on screen the moment the section pins, no entrance needed
+        } else {
+          const liveX = restLeft[i] + trackX;
+          t = smoothstep(remap(liveX, itemWidth * START_RATIO, itemWidth * END_RATIO));
+        }
+        if (inner) inner.style.transform = `translateY(${(1 - t) * RISE_PX}px)`;
+        if (line) line.style.transform = `scaleY(${t})`;
       });
     }
 
-    update();
+    function update() {
+      if (!desktopMotion.matches) return;
+      const p = getProgress();
+
+      const pan = remap(p, 0, PAN_END);
+      track.style.transform = `translateX(${-pan * maxPan}px)`;
+      updateCards(pan);
+
+      // Real spatial move, not fade/scale: the whole front layer
+      // (everything we've been watching pan — background included)
+      // slides fully off to the left, uncovering the static #pidCta
+      // preview sitting behind it at inset:0 the entire time.
+      const reveal = remap(p, SLIDE_START, 1);
+      slide.style.transform = reveal > 0 ? `translateX(${-reveal * 100}%)` : "";
+    }
+
+    function onResize() {
+      measure();
+      update();
+    }
+
     window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
+    window.addEventListener("resize", onResize);
+    measure();
+    update();
+  })();
+
+  /* Steps stack: same overlapping-card mechanic as the homepage's
+     .stack-section (script.js there) — ported here since this page
+     doesn't load script.js, and reusing styles.css's shared .stack-*
+     rules as-is (no page-specific CSS needed). Step 1's card is the
+     non-moving base (fills the homepage version's video-card slot);
+     steps 2-8 — 7 cards, matching FINAL_ROTATIONS' length — queue
+     below the sticky viewport and slide up on top of it one at a
+     time as you scroll. */
+  (function () {
+    const section = document.getElementById("pidStackSection");
+    const wrap = document.getElementById("pidStackWrap");
+    const cards = wrap ? Array.from(wrap.querySelectorAll(".stack-card")) : [];
+    if (!section || cards.length < 2) return;
+
+    const contentCards = cards.slice(1); // skip the base card, it never moves
+    const N = contentCards.length;
+    const FINAL_ROTATIONS = [-2, 2, -3, 3, -2, 4, -3];
+
+    function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function smoothstep(edge0, edge1, x) {
+      const t = clamp((x - edge0) / (edge1 - edge0), 0, 1);
+      return t * t * (3 - 2 * t);
+    }
+    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+    function getProgress() {
+      const rect = section.getBoundingClientRect();
+      const total = section.offsetHeight - window.innerHeight;
+      if (total <= 0) return 0;
+      return clamp(-rect.top / total, 0, 1);
+    }
+
+    let ticking = false;
+    let cardHalfHeight = 0;
+
+    function measure() {
+      cardHalfHeight = cards[0].getBoundingClientRect().height / 2;
+    }
+
+    function render(p) {
+      const FILL_START = 0.03;
+      const FILL_SPAN = 0.8;
+      const ITEM_DUR = 0.24;
+      const viewportHalf = window.innerHeight / 2;
+      const PEEK = 90;
+      const STAGGER = 46;
+
+      contentCards.forEach((el, i) => {
+        const staggerFrac = N > 1 ? i / (N - 1) : 0;
+        const start = FILL_START + staggerFrac * FILL_SPAN;
+        const end = start + ITEM_DUR;
+        const t = easeOutCubic(smoothstep(start, end, p));
+
+        const queuedOffset = viewportHalf + cardHalfHeight - PEEK + i * STAGGER;
+        const y = lerp(queuedOffset, 0, t);
+        const rot = lerp(0, FINAL_ROTATIONS[i % FINAL_ROTATIONS.length], t);
+
+        el.style.transform = `translateY(${y}px) rotate(${rot}deg)`;
+        el.style.zIndex = String(20 + i);
+      });
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => {
+          render(getProgress());
+          ticking = false;
+        });
+      }
+    }
+
+    function onResize() {
+      measure();
+      onScroll();
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+    measure();
+    render(getProgress());
   })();
 }

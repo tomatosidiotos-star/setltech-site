@@ -282,19 +282,21 @@
   color: var(--ink-soft);
 }
 
-/* Methodology — plain card on mobile/reduced-motion (base rules below,
-   four stacked lines/paragraphs read fine even static). On desktop
-   with motion allowed, the section below overrides this into a pinned
-   "big text lights up word by word as you scroll" reveal:
-   .pid-method-pin-wrap gets real scroll height (220vh) so
-   .pid-method-pin can sit position:sticky inside it — each WORD
-   dims→lights as its point in the text scrolls past (JS wraps every
-   word in .pid-method-word, walking each line so paragraph structure
-   and the <em> phrases survive the wrap — see praktis-id.js), same
-   continuous-progress technique as the steps timeline's fill line,
-   just driving word opacity instead of a bar. The enumerated phrases
-   (<em>) get accent + italic everywhere, not just on desktop — that's
-   a content/typography choice, not part of the scroll effect. */
+/* Methodology — inspired by trionn.com's About block: eyebrow+heading,
+   one big lead line, a divider, then two small supporting columns
+   below it (was three icon+paragraph groups until 2026-09-09's
+   rework — reads as too much at full size). Plain and static on
+   mobile/reduced-motion; on desktop with motion allowed, the section
+   below pins the lead line mid-screen and lights it up word by word
+   as you scroll (.pid-method-pin-wrap's 150vh scroll height, sticky
+   .pid-method-pin, JS wraps each word of .pid-method-lead in
+   .pid-method-word — see praktis-id.js) — same continuous-progress
+   technique as the steps timeline's fill line, just driving word
+   opacity instead of a bar. The two columns below the divider are NOT
+   part of that scroll effect — they just fade/rise in once, same as
+   feature/benefit cards elsewhere on the page. The enumerated phrases
+   (<em>) get accent + italic everywhere — a content/typography
+   choice, not part of either effect. */
 
 .pid-method-section { padding-bottom: 0; }
 
@@ -306,10 +308,10 @@
   border-radius: var(--radius-card);
 }
 
-/* Left-aligned to match .pid-method-text below it, instead of the
+/* Left-aligned to match .pid-method-body below it, instead of the
    generic centered .pid-section-head used everywhere else on the
    page — also lets the heading sit on one line instead of wrapping.
-   Both this and .pid-method-text get width:100% (capped by the same
+   Both this and .pid-method-body get width:100% (capped by the same
    max-width) rather than shrink-to-fit their own content — without
    that, .pid-method-pin's align-items:center would center each box
    independently at its own (different) content width, and their left
@@ -324,20 +326,81 @@
 
 .pid-method-pin .pid-eyebrow { margin: 0; }
 
-.pid-method-text {
+.pid-method-body {
+  width: 100%;
+  max-width: 1000px;
   margin: 0;
-  font-size: clamp(16px, 1.2vw, 19px);
-  line-height: 1.55;
+}
+
+.pid-method-lead .pid-method-line {
+  display: block;
+  margin: 0;
+  font-size: clamp(20px, 2.4vw, 30px);
+  font-weight: 600;
+  line-height: 1.4;
   color: var(--ink);
 }
 
-.pid-method-line { display: block; }
-.pid-method-line + .pid-method-line { margin-top: 0.5em; }
+/* Line broken into two flex-1 segments with the mark sitting in the
+   gap between them, instead of one full-width line with the mark
+   knocked out over it — no background-matching needed per breakpoint
+   (the pin's own background switches between the white card and
+   transparent, see the desktop override below). */
+.pid-method-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 40px 0;
+}
 
-.pid-method-text em {
-  color: var(--accent);
+.pid-method-divider::before,
+.pid-method-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.pid-method-divider-mark {
+  color: var(--icon-muted);
+  font-size: 16px;
+  line-height: 1;
+}
+
+.pid-method-columns { display: block; }
+.pid-method-col + .pid-method-col { margin-top: 24px; }
+
+.pid-method-col {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pid-method-col.is-revealed { opacity: 1; transform: none; }
+
+.pid-method-col p {
+  margin: 0;
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.pid-method-col p + p { margin-top: 0.5em; }
+
+.pid-method-body em {
+  color: inherit;
   font-style: normal;
   font-weight: inherit;
+}
+
+@media (min-width: 901px) {
+  .pid-method-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  .pid-method-col + .pid-method-col { margin-top: 0; }
 }
 
 @media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
@@ -345,7 +408,7 @@
 
   .pid-method-pin-wrap {
     position: relative;
-    height: 220vh;
+    height: 150vh;
   }
 
   .pid-method-pin {
@@ -363,16 +426,10 @@
     border-radius: 0;
   }
 
-  .pid-method-text {
-    width: 100%;
+  .pid-method-body {
     max-width: 1000px;
     text-align: left;
-    font-size: clamp(22px, 2.6vw, 36px);
-    font-weight: 600;
-    line-height: 1.4;
   }
-
-  .pid-method-line + .pid-method-line { margin-top: 0.35em; }
 
   .pid-method-word {
     opacity: 0.22;
@@ -507,76 +564,13 @@
   color: var(--ink-soft);
 }
 
-/* How it works — vertical timeline. A thin track runs the height of
-   the list; its accent fill grows continuously with scroll progress
-   (plain scroll listener, no pin/pan — much lighter than the homepage
-   path diagram). Each row also reveals independently via
-   IntersectionObserver, same one-shot pattern used everywhere else. */
-
-.pid-steps-list {
-  position: relative;
-  max-width: 760px;
-  margin: 0 auto;
-  padding-left: 76px;
-}
-
-.pid-steps-track {
-  position: absolute;
-  left: 27px;
-  top: 6px;
-  bottom: 6px;
-  width: 2px;
-  background: var(--line);
-}
-
-.pid-steps-fill {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 0%;
-  background: var(--accent);
-  transition: height 0.1s linear;
-}
-
-.pid-step {
-  position: relative;
-  padding: 18px 0;
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.pid-step.is-revealed { opacity: 1; transform: none; }
-
-.pid-step-dot {
-  position: absolute;
-  left: -76px;
-  top: 14px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--surface);
-  border: 2px solid var(--icon-muted);
-  color: var(--ink-soft);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  font-size: 15px;
-  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.pid-step.is-active .pid-step-dot {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
-  transform: scale(1.1);
-  box-shadow: 0 8px 20px rgba(60, 131, 246, 0.28);
-}
-
-.pid-step h4 { margin: 0 0 6px; font-size: 17px; }
-.pid-step p { margin: 0; font-size: 14px; line-height: 1.45; color: var(--ink-soft); }
+/* How it works — reuses the homepage's .stack-* overlapping-card deck
+   as-is (shared styles.css rules: card size/tilt/shadow, .stack-content
+   accent fill, reduced-motion fallback that unstacks into a wrapped
+   static grid). Step 1's card is the non-moving base (like the
+   homepage's video card slot); steps 2-8 queue below the sticky
+   viewport and slide up on top of it one at a time — see the ported
+   mechanic in praktis-id.js. Nothing page-specific needed here. */
 
 /* Benefits — 6-up grid, fade+rise stagger */
 
@@ -616,27 +610,270 @@
 .pid-benefit-card h4 { margin: 0; font-size: 17px; }
 .pid-benefit-card p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink-soft); }
 
-/* Modules — 3-up row */
+/* Modules — pinned horizontal filmstrip on desktop, verified against
+   trionn.com's own project-showcase block by inspecting its live DOM
+   (not just eyeballing screenshots, twice — see praktis-id.js for the
+   full account of what that inspection actually found):
+     1. Heading + one item per module + an outro card sit in a single
+        flex row (.pid-modules-track) that pans left as a whole via one
+        continuous translateX, same technique as every other
+        horizontal-scroll section on this site.
+     2. Each card ALSO runs its own "rise from below" layered on top of
+        that pan: starts translateY(+), its divider line at scaleY:0,
+        easing up to translateY:0/scaleY:1 as its own position in the
+        row approaches the front. .pid-modules-viewport clips this on
+        the X axis only (overflow-x:hidden) — Y stays visible, so a
+        card sitting at its "not yet risen" offset is genuinely
+        off-screen/blank rather than having its own bottom edge sliced
+        off by a clip box sized for the settled state (that half-
+        clipped look was the original bug: cards read as popping out of
+        their own frame instead of emerging from off-screen).
+     3. #pidCta doesn't just appear after this section ends — a static
+        preview of it (.pid-modules-cta-preview) sits behind the whole
+        pin from the start, and once the row finishes panning through
+        the outro card and holds for a beat, the row's containing layer
+        (.pid-modules-slide, which carries the section's own accent
+        background) slides itself fully off to the left
+        (translateX(-100%)), revealing that preview underneath — real
+        spatial movement, not a fade/scale substitute. The pin then
+        releases normally and the real #pidCta section (matching
+        markup) continues from exactly where the preview left off.
+   Plain stacked cards on mobile/reduced-motion — no pin, no pan, no
+   per-card rise, no slide-away reveal, same content and images though. */
 
-.pid-modules-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+.pid-modules-section { position: relative; }
+
+.pid-modules-pin {
+  background: var(--accent);
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: clamp(28px, 3.4vw, 48px) clamp(16px, 1.7vw, 32px);
 }
 
-.pid-module-card {
-  background: var(--surface);
-  border-radius: var(--radius-card);
-  padding: clamp(24px, 2.6vw, 32px);
-  text-align: center;
+.pid-modules-cta-preview { display: none; }
+
+/* Solid accent background needs the same light-on-blue treatment as
+   .pid-cta-card elsewhere on this page: white headings, translucent
+   white for secondary text/the divider line (the default --ink/
+   --ink-soft/--line/--accent tokens below are tuned for the light
+   page background and disappear or clash against solid --accent). */
+
+.pid-modules-head { margin: 0 0 24px; }
+.pid-modules-head .pid-eyebrow { margin: 0 0 8px; text-align: left; color: rgba(255, 255, 255, 0.8); }
+.pid-modules-head h2 { margin: 0; color: #fff; }
+
+.pid-modules-track {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.pid-modules-card-line { display: none; }
+
+.pid-modules-card {
   opacity: 0;
-  transform: scale(0.94);
-  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.pid-module-card.is-revealed { opacity: 1; transform: none; }
-.pid-module-card h4 { margin: 0 0 10px; color: var(--accent); }
-.pid-module-card p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink-soft); }
+.pid-modules-card.is-revealed { opacity: 1; transform: none; }
+
+.pid-modules-shot {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--surface);
+  aspect-ratio: 16 / 9;
+}
+
+.pid-modules-shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+
+.pid-modules-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 16px;
+}
+
+.pid-modules-caption h3 { margin: 0; font-size: 18px; color: #fff; }
+
+.pid-modules-caption p {
+  margin: 0;
+  max-width: 46ch;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.pid-modules-card--summary .pid-modules-card-inner {
+  display: grid;
+  gap: 32px;
+}
+
+/* These two lines are the payoff of the whole filmstrip — a UTP-style
+   callout, not another caption — so they get real headline weight
+   instead of the 18px used for per-module captions above. */
+.pid-modules-summary-item h3 {
+  margin: 0 0 10px;
+  font-size: clamp(24px, 2.6vw, 38px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+.pid-modules-summary-item p {
+  margin: 0;
+  font-size: clamp(15px, 1.2vw, 18px);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+@media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
+  .pid-modules-pin-wrap {
+    position: relative;
+    height: 320vh;
+  }
+
+  .pid-modules-pin {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    background: none;
+    overflow: hidden;
+  }
+
+  /* Preview sits absolutely under the slide layer the whole time —
+     revealed once that layer slides away (see praktis-id.js). Reuses
+     .pid-cta-card + .wrap as-is so it's pixel-identical to the real
+     #pidCta below; .is-revealed is set directly in the markup since
+     the scroll-triggered reveal JS only targets the real #pidCta by id. */
+  .pid-modules-cta-preview {
+    display: flex;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    align-items: center;
+    background: var(--bg);
+  }
+
+  /* Carries the section's own accent background and everything that
+     was visible up to now — this whole layer is what slides fully off
+     to the left at the very end (see praktis-id.js), not just its
+     content, so the background goes with it and the preview above
+     shows through cleanly rather than "more blue" being revealed. */
+  .pid-modules-slide {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    background: var(--accent);
+    will-change: transform;
+  }
+
+  /* Full-bleed, same trick as .pid-slider-viewport: the clipping edge
+     sits at the true viewport edge, not .wrap's max-width — trionn's
+     own version genuinely splits the full viewport into two 50%-wide
+     columns, it isn't a small centered box. --pmw is solved from the
+     viewport's own width so exactly 2 items (heading+card, or
+     card+card) fill it edge to edge with NO sliver of a third one
+     peeking in at rest (that peek only appears once the row actually
+     starts panning on scroll) — min(760px, ...) is just a sanity cap
+     for ultra-wide monitors, inert at normal desktop widths.
+     overflow-x only, NOT overflow:hidden on both axes — a card's
+     "not risen yet" offset needs full vertical headroom to be truly
+     off-screen; clipping the Y axis to the settled card's own height
+     sliced its bottom edge off mid-rise instead of hiding it. */
+  .pid-modules-viewport {
+    --pmw-gap: clamp(40px, 5vw, 80px);
+    --pmw-pad: clamp(24px, 6vw, 80px);
+    --pmw: min(760px, calc((100vw - 2 * var(--pmw-pad) - var(--pmw-gap)) / 2));
+    /* overflow-x:hidden alone would look like what we want, but per
+       spec a hidden X paired with a visible Y is never rendered as
+       "visible" — the browser silently turns that Y into auto, which
+       is a real scrollbar the instant a shifted-down card overflows
+       (that's the sidebar-scrollbar bug). Simplest fix that isn't
+       fighting the spec: overflow:hidden on BOTH axes (no mixing, no
+       auto), but pad top+bottom by RISE_PX (see praktis-id.js) so a
+       card sitting at its "not risen yet" offset is fully WITHIN this
+       box's own bounds — nothing to clip, nothing to scroll. Padding
+       is symmetric (not just bottom) purely to keep the visible
+       content centered; only the bottom half is ever actually used. */
+    overflow: hidden;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    padding: 120px var(--pmw-pad);
+  }
+
+  .pid-modules-track {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--pmw-gap);
+    width: max-content;
+  }
+
+  .pid-modules-head,
+  .pid-modules-card {
+    flex: 0 0 var(--pmw);
+  }
+
+  .pid-modules-head {
+    margin: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .pid-modules-head .pid-eyebrow { text-align: center; }
+
+  /* Each card is its own [line | inner] row. The line grows in
+     (scaleY 0 -> 1, top-anchored) in lockstep with .card-inner's
+     rise (translateY + -> 0) — both driven by the SAME per-card
+     progress in JS, off that card's own live position in the row
+     rather than a global 1/N split, so the rise window follows
+     wherever the card actually is on screen. */
+  .pid-modules-card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    display: flex;
+    align-items: stretch;
+    gap: 32px;
+  }
+
+  .pid-modules-card-line {
+    display: none;
+    flex: 0 0 1px;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.25);
+    transform-origin: top;
+  }
+
+  .pid-modules-card-inner { min-width: 0; flex: 1; }
+
+  /* The summary card is the last item — nothing follows it that a
+     shared --pmw width needs to leave room for — so it takes the
+     viewport's full visible content width instead (same width the
+     viewport itself resolves to, minus its own side padding), giving
+     the centered text real room instead of centering inside a slot
+     sized for a screenshot. */
+  .pid-modules-card--summary {
+    flex-basis: calc(var(--pmw) * 2 + var(--pmw-gap) - 2 * var(--pmw-pad));
+  }
+
+  .pid-modules-card--summary .pid-modules-card-inner {
+    justify-content: center;
+    align-self: center;
+  }
+}
 
 /* Final CTA banner */
 
@@ -675,18 +912,13 @@
 
 @media (max-width: 900px) {
   .pid-features-grid { grid-template-columns: repeat(2, 1fr); }
-  .pid-benefits-grid,
-  .pid-modules-grid { grid-template-columns: 1fr 1fr; }
+  .pid-benefits-grid { grid-template-columns: 1fr 1fr; }
   .pid-compare-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {
   .pid-features-grid,
-  .pid-benefits-grid,
-  .pid-modules-grid { grid-template-columns: 1fr; }
-  .pid-steps-list { padding-left: 60px; }
-  .pid-step-dot { left: -60px; width: 34px; height: 34px; font-size: 13px; }
-  .pid-steps-track { left: 22px; }
+  .pid-benefits-grid { grid-template-columns: 1fr; }
   .pid-slider-arrow { width: 40px; height: 40px; }
   .pid-slider-arrow--prev { left: max(0px, calc(50% - var(--slide-half) - 20px)); }
   .pid-slider-arrow--next { right: max(0px, calc(50% - var(--slide-half) - 20px)); }
@@ -699,8 +931,8 @@
 @media (prefers-reduced-motion: reduce) {
   .breadcrumb,
   .pid-hero-title, .pid-hero-sub, .pid-hero-cta, .pid-slider,
-  .pid-section-head, .pid-compare-row,
-  .pid-feature-card, .pid-step, .pid-benefit-card, .pid-module-card,
+  .pid-section-head, .pid-compare-row, .pid-method-col,
+  .pid-feature-card, .pid-benefit-card, .pid-modules-slide, .pid-modules-summary-item,
   .pid-cta-card {
     opacity: 1;
     transform: none;
@@ -708,5 +940,4 @@
   }
   .pid-slide { opacity: 1; transform: none; }
   .pid-slider-track { transition: none; }
-  .pid-steps-fill { display: none; }
 }
