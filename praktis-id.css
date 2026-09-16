@@ -53,7 +53,7 @@
 
 .pid-hero-title,
 .pid-hero-sub,
-.pid-hero-cta {
+.pid-hero-cta-row {
   opacity: 0;
   transform: translateY(22px);
   transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
@@ -80,14 +80,14 @@
 
 .pid-hero.is-loaded .pid-hero-title,
 .pid-hero.is-loaded .pid-hero-sub,
-.pid-hero.is-loaded .pid-hero-cta {
+.pid-hero.is-loaded .pid-hero-cta-row {
   opacity: 1;
   transform: none;
 }
 
 .pid-hero.is-loaded .pid-hero-title { transition-delay: 0.05s; }
 .pid-hero.is-loaded .pid-hero-sub { transition-delay: 0.14s; }
-.pid-hero.is-loaded .pid-hero-cta { transition-delay: 0.23s; }
+.pid-hero.is-loaded .pid-hero-cta-row { transition-delay: 0.23s; }
 
 .pid-hero-sub {
   margin: 0;
@@ -98,11 +98,22 @@
   color: var(--ink);
 }
 
+/* .pid-hero-cta-row: three buttons now (instruction / go-to-service /
+   connect), not the single button this page shipped with — the row
+   itself carries the fade-up reveal (see .pid-hero-title etc. above),
+   each button just needs its own consistent size via .pid-hero-cta. */
+.pid-hero-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
 .pid-hero-cta {
   font-size: clamp(15px, 1.1vw, 17px);
   padding: clamp(10px, 0.9vw, 12px) clamp(10px, 0.9vw, 12px) clamp(10px, 0.9vw, 12px) clamp(20px, 1.8vw, 26px);
   gap: clamp(10px, 0.9vw, 12px);
-  margin-top: 8px;
 }
 
 /* Slider sits OUTSIDE .pid-hero-card (sibling, not child) and is pulled
@@ -621,23 +632,28 @@
      2. Each card ALSO runs its own "rise from below" layered on top of
         that pan: starts translateY(+), its divider line at scaleY:0,
         easing up to translateY:0/scaleY:1 as its own position in the
-        row approaches the front. .pid-modules-viewport clips this on
-        the X axis only (overflow-x:hidden) — Y stays visible, so a
-        card sitting at its "not yet risen" offset is genuinely
-        off-screen/blank rather than having its own bottom edge sliced
-        off by a clip box sized for the settled state (that half-
-        clipped look was the original bug: cards read as popping out of
-        their own frame instead of emerging from off-screen).
-     3. #pidCta doesn't just appear after this section ends — a static
-        preview of it (.pid-modules-cta-preview) sits behind the whole
-        pin from the start, and once the row finishes panning through
-        the outro card and holds for a beat, the row's containing layer
-        (.pid-modules-slide, which carries the section's own accent
-        background) slides itself fully off to the left
-        (translateX(-100%)), revealing that preview underneath — real
-        spatial movement, not a fade/scale substitute. The pin then
-        releases normally and the real #pidCta section (matching
-        markup) continues from exactly where the preview left off.
+        row approaches the front. .pid-modules-viewport clips this with
+        overflow:hidden on BOTH axes, padded top+bottom by RISE_PX so a
+        card at its "not yet risen" offset is fully within the clip
+        box's own bounds — genuinely off-screen/blank rather than
+        having its own bottom edge sliced off by a box sized for the
+        settled state (that half-clipped look was the original bug:
+        cards read as popping out of their own frame instead of
+        emerging from off-screen; see the viewport rule below for why
+        the axes can't just be split hidden/visible instead).
+     3. An empty page-background layer (.pid-modules-cta-preview) sits
+        behind the whole pin from the start, and once the row finishes
+        panning through the outro card and holds for a beat, the row's
+        containing layer (.pid-modules-slide, which carries the
+        section's own accent background) slides itself fully off to
+        the left (translateX(-100%)), revealing that plain background
+        underneath — real spatial movement, not a fade/scale
+        substitute. The pin then releases normally and #pidPricing
+        enters right after with its own ordinary fade/rise reveal.
+        The preview deliberately carries no text/cards of its own —
+        see the HTML comment on .pid-modules-cta-preview for why
+        echoing #pidPricing's heading there (tried twice) always
+        produced a visible duplicate during the hand-off.
    Plain stacked cards on mobile/reduced-motion — no pin, no pan, no
    per-card rise, no slide-away reveal, same content and images though. */
 
@@ -652,11 +668,11 @@
 
 .pid-modules-cta-preview { display: none; }
 
-/* Solid accent background needs the same light-on-blue treatment as
-   .pid-cta-card elsewhere on this page: white headings, translucent
-   white for secondary text/the divider line (the default --ink/
-   --ink-soft/--line/--accent tokens below are tuned for the light
-   page background and disappear or clash against solid --accent). */
+/* Solid accent background needs its own light-on-blue treatment:
+   white headings, translucent white for secondary text/the divider
+   line (the default --ink/--ink-soft/--line/--accent tokens below are
+   tuned for the light page background and disappear or clash against
+   solid --accent). */
 
 .pid-modules-head { margin: 0 0 24px; }
 .pid-modules-head .pid-eyebrow { margin: 0 0 8px; text-align: left; color: rgba(255, 255, 255, 0.8); }
@@ -749,17 +765,17 @@
     overflow: hidden;
   }
 
-  /* Preview sits absolutely under the slide layer the whole time —
-     revealed once that layer slides away (see praktis-id.js). Reuses
-     .pid-cta-card + .wrap as-is so it's pixel-identical to the real
-     #pidCta below; .is-revealed is set directly in the markup since
-     the scroll-triggered reveal JS only targets the real #pidCta by id. */
+  /* Preview sits absolutely under the slide layer the whole time,
+     revealed once that layer slides away (see praktis-id.js) — empty
+     on purpose, see the HTML comment on this element for why any
+     text here (tried twice: full head+grid, then head-only) ends up
+     visibly duplicating the real #pidPricingHead during the hand-off
+     no matter how tight the seam. background matches the page so the
+     hand-off is just bg-meets-bg, not a color jump. */
   .pid-modules-cta-preview {
-    display: flex;
     position: absolute;
     inset: 0;
     z-index: 1;
-    align-items: center;
     background: var(--bg);
   }
 
@@ -873,39 +889,173 @@
     justify-content: center;
     align-self: center;
   }
+
+  /* #pidPricing sits immediately after .pid-modules-pin-wrap in the
+     DOM with zero space between them, but .pid-section's own top
+     padding (up to 108px) was pushing its content down from that
+     seam regardless, leaving a blank beat after the pin releases
+     before anything appears. Zeroed here, under this same
+     desktop+motion query only — mobile/reduced-motion never runs the
+     pin at all, so that version keeps the normal padding every other
+     section gets. */
+  .pid-pricing-section { padding-top: 0; }
 }
 
-/* Final CTA banner */
+/* Pricing — 3-up card grid closing the page. Same surface/radius/
+   reveal as .pid-feature-card above; each card adds a price and a
+   tariff-scoped "Подключить" button that opens the shared join-style
+   modal (#pidJoinModal, reuses styles.css's .join-* rules as-is — see
+   praktis-id.js for the open/submit logic and how the clicked card's
+   data-tariff becomes the modal's heading). */
 
-.pid-cta-card {
-  background: var(--accent);
-  color: #fff;
+.pid-pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.pid-pricing-card {
+  background: var(--surface);
   border-radius: var(--radius-card);
-  padding: clamp(40px, 5vw, 72px);
+  padding: 28px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  text-align: center;
   opacity: 0;
-  transform: scale(0.96);
+  transform: translateY(24px);
   transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.pid-cta-card.is-revealed { opacity: 1; transform: none; }
-.pid-cta-card h2 { margin: 0; }
+.pid-pricing-card.is-revealed { opacity: 1; transform: none; }
 
-.pid-cta-card .btn-accent {
-  background: #fff;
+.pid-pricing-card h3 { margin: 0 0 12px; font-size: 19px; }
+
+.pid-pricing-price {
+  margin: 0;
+  font-size: clamp(24px, 2.2vw, 30px);
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1.15;
 }
 
-.pid-cta-card .btn-accent .btn-label { color: var(--accent); }
-.pid-cta-card .btn-accent .btn-icon { background: var(--accent); }
-.pid-cta-card .btn-accent .btn-icon svg path { fill: #fff; }
+.pid-pricing-price span {
+  margin-left: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
 
-.pid-cta-card .btn-accent:hover,
-.pid-cta-card .btn-accent:focus-visible {
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+.pid-pricing-period {
+  margin: 6px 0 0;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.pid-pricing-list {
+  flex: 1;
+  list-style: none;
+  margin: 20px 0 24px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pid-pricing-list li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.pid-pricing-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.2em;
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+  border: 1.5px solid var(--accent);
+}
+
+/* .pid-pricing-card has no explicit align-items, so it defaults to
+   stretch — every flex child (h3/p/ul included) fills the card's full
+   width, which is right for text that needs to wrap at card width.
+   The button is the one child that shouldn't stretch: align-self
+   pulls it back to its own natural content size, same as every other
+   .btn-accent on the site (never a full-width block elsewhere).
+   .btn/.btn-accent carry no padding of their own anywhere on this
+   site — every usage supplies it via its own context class (.hero-cta,
+   .pid-hero-cta) — so pid-pricing-btn needs the same, or the label
+   sits flush against the pill's rounded edge with no inset. Reusing
+   .pid-hero-cta's own values above for consistency within this page. */
+.pid-pricing-btn {
+  align-self: flex-start;
+  padding: clamp(10px, 0.9vw, 12px) clamp(10px, 0.9vw, 12px) clamp(10px, 0.9vw, 12px) clamp(20px, 1.8vw, 26px);
+  gap: clamp(10px, 0.9vw, 12px);
+}
+
+.pid-pricing-fineprint {
+  margin: 32px auto 0;
+  max-width: 760px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.pid-pricing-fineprint a { color: var(--accent); }
+
+/* Compliance — 2-up "trust badge" strip closing the page: registry
+   listing + FSTEC certification. Horizontal icon+text layout (not the
+   stacked icon-on-top used by feature/benefit cards) reads more like a
+   credential/badge than a pitch, which fits proof-of-compliance copy
+   better than the pitch-y vertical card style used above it. */
+
+.pid-compliance-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.pid-compliance-card {
+  background: var(--surface);
+  border-radius: var(--radius-card);
+  padding: 28px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pid-compliance-card.is-revealed { opacity: 1; transform: none; }
+
+.pid-compliance-icon {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(60, 131, 246, 0.1);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pid-compliance-icon svg { width: 26px; height: 26px; }
+
+.pid-compliance-body h4 { margin: 0 0 6px; font-size: 17px; }
+.pid-compliance-body p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-soft);
 }
 
 /* Responsive */
@@ -914,6 +1064,14 @@
   .pid-features-grid { grid-template-columns: repeat(2, 1fr); }
   .pid-benefits-grid { grid-template-columns: 1fr 1fr; }
   .pid-compare-grid { grid-template-columns: 1fr; }
+  /* 3 cards, not 4 or 6 — a 2-up intermediate step would leave one
+     stranded alone on its own row, so this skips straight to 1-up. */
+  .pid-pricing-grid { grid-template-columns: 1fr; }
+  /* Each card's title can run to 2 lines on its own (e.g. "Аттестат
+     соответствия ФСТЭК России") — a half-width column at this size
+     would cramp that further, so this collapses to 1-up same as the
+     pricing/compare grids above. */
+  .pid-compliance-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {
@@ -930,10 +1088,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .breadcrumb,
-  .pid-hero-title, .pid-hero-sub, .pid-hero-cta, .pid-slider,
+  .pid-hero-title, .pid-hero-sub, .pid-hero-cta-row, .pid-slider,
   .pid-section-head, .pid-compare-row, .pid-method-col,
   .pid-feature-card, .pid-benefit-card, .pid-modules-slide, .pid-modules-summary-item,
-  .pid-cta-card {
+  .pid-pricing-card, .pid-compliance-card {
     opacity: 1;
     transform: none;
     transition: none;

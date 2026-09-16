@@ -1461,6 +1461,59 @@ img { display: block; max-width: 100%; }
 .footer-contacts p { margin: 4px 0 0; }
 .footer-contacts p:first-child { margin-top: 0; }
 
+/* Scroll-to-top button: fixed bottom-right on every page that includes
+   it, faded/lifted in via .is-visible once script.js/praktis-id.js
+   decides you've scrolled far enough down to want it (see that IIFE
+   for the threshold). Markup starts [hidden] — not just opacity:0 —
+   and that JS toggles the attribute itself (after the fade-out
+   transition on the way out, immediately on the way in) so a keyboard
+   user tabbing past the footer never lands on an invisible, inert
+   button while still at the top of the page. Same [hidden]+.is-*
+   two-step .join-modal already uses below. */
+.scroll-top[hidden] {
+  display: none;
+}
+
+.scroll-top {
+  position: fixed;
+  right: clamp(16px, 2vw, 32px);
+  bottom: clamp(16px, 2vw, 32px);
+  z-index: 40;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.scroll-top.is-visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.scroll-top.is-visible:hover,
+.scroll-top.is-visible:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(60, 131, 246, 0.32);
+}
+
+.scroll-top svg { width: 20px; height: 20px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-top { transition: opacity 0.2s ease; }
+  .scroll-top.is-visible:hover,
+  .scroll-top.is-visible:focus-visible { transform: none; }
+}
+
 /* Join modal ("Присоединиться"): a plain centered dialog — no
    button-position morphing like the popover we removed from the path
    diagram — with a quick backdrop+card fade/scale entrance. The

@@ -16,6 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.11.2/build/css/intlTelInput.min.css">
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="praktis-id.css">
 </head>
@@ -53,14 +54,32 @@
           <h1>Praktis.ID</h1>
         </div>
         <p class="pid-hero-sub">Система для формирования, ведения, подписания и комплектования исполнительной документации в электронном виде</p>
-        <a class="btn btn-accent pid-hero-cta" href="#">
-          <span class="btn-label">Перейти в сервис</span>
-          <span class="btn-icon">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M17.9241 6.61722C17.8757 6.50014 17.804 6.3904 17.7092 6.29502C17.7078 6.2936 17.7064 6.29219 17.705 6.29078C17.5242 6.11106 17.2751 6 17 6H7C6.44772 6 6 6.44772 6 7C6 7.55228 6.44772 8 7 8H14.5858L6.29289 16.2929C5.90237 16.6834 5.90237 17.3166 6.29289 17.7071C6.68342 18.0976 7.31658 18.0976 7.70711 17.7071L16 9.41421V17C16 17.5523 16.4477 18 17 18C17.5523 18 18 17.5523 18 17V7.00069C18 6.99969 18 6.998 18 6.997C17.9996 6.8625 17.9727 6.73425 17.9241 6.61722Z" fill="white"/>
-            </svg>
-          </span>
-        </a>
+        <div class="pid-hero-cta-row">
+          <a class="btn btn-stroke pid-hero-cta" href="https://id.praktis.ru/" target="_blank" rel="noopener">
+            <span class="btn-label">Перейти в сервис</span>
+            <span class="btn-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.9241 6.61722C17.8757 6.50014 17.804 6.3904 17.7092 6.29502C17.7078 6.2936 17.7064 6.29219 17.705 6.29078C17.5242 6.11106 17.2751 6 17 6H7C6.44772 6 6 6.44772 6 7C6 7.55228 6.44772 8 7 8H14.5858L6.29289 16.2929C5.90237 16.6834 5.90237 17.3166 6.29289 17.7071C6.68342 18.0976 7.31658 18.0976 7.70711 17.7071L16 9.41421V17C16 17.5523 16.4477 18 17 18C17.5523 18 18 17.5523 18 17V7.00069C18 6.99969 18 6.998 18 6.997C17.9996 6.8625 17.9727 6.73425 17.9241 6.61722Z" fill="white"/>
+              </svg>
+            </span>
+          </a>
+          <button type="button" class="btn btn-accent pid-hero-cta pid-join-trigger" data-modal-title="Подключение сервиса ИД">
+            <span class="btn-label">Подключить</span>
+            <span class="btn-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.9241 6.61722C17.8757 6.50014 17.804 6.3904 17.7092 6.29502C17.7078 6.2936 17.7064 6.29219 17.705 6.29078C17.5242 6.11106 17.2751 6 17 6H7C6.44772 6 6 6.44772 6 7C6 7.55228 6.44772 8 7 8H14.5858L6.29289 16.2929C5.90237 16.6834 5.90237 17.3166 6.29289 17.7071C6.68342 18.0976 7.31658 18.0976 7.70711 17.7071L16 9.41421V17C16 17.5523 16.4477 18 17 18C17.5523 18 18 17.5523 18 17V7.00069C18 6.99969 18 6.998 18 6.997C17.9996 6.8625 17.9727 6.73425 17.9241 6.61722Z" fill="white"/>
+              </svg>
+            </span>
+          </button>
+          <a class="btn btn-stroke pid-hero-cta" href="https://id.setltech.ru/user-manual" target="_blank" rel="noopener">
+            <span class="btn-label">Инструкция пользователя</span>
+            <span class="btn-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.9241 6.61722C17.8757 6.50014 17.804 6.3904 17.7092 6.29502C17.7078 6.2936 17.7064 6.29219 17.705 6.29078C17.5242 6.11106 17.2751 6 17 6H7C6.44772 6 6 6.44772 6 7C6 7.55228 6.44772 8 7 8H14.5858L6.29289 16.2929C5.90237 16.6834 5.90237 17.3166 6.29289 17.7071C6.68342 18.0976 7.31658 18.0976 7.70711 17.7071L16 9.41421V17C16 17.5523 16.4477 18 17 18C17.5523 18 18 17.5523 18 17V7.00069C18 6.99969 18 6.998 18 6.997C17.9996 6.8625 17.9727 6.73425 17.9241 6.61722Z" fill="white"/>
+              </svg>
+            </span>
+          </a>
+        </div>
       </div>
 
       <div class="pid-slider" id="pidSlider">
@@ -520,25 +539,27 @@
       <div class="pid-modules-pin">
 
         <!-- Sits underneath the slide layer for the whole pin, revealed
-             as that layer moves out of the way at the very end — a
-             static stand-in for #pidCta below, matching its markup/
-             classes so the hand-off into the real section (once the
-             pin releases) reads as one continuous card, not a restart. -->
-        <div class="pid-modules-cta-preview" aria-hidden="true">
-          <div class="wrap">
-            <div class="pid-cta-card is-revealed">
-              <h2>Начните управлять документами эффективно</h2>
-              <span class="btn btn-accent">
-                <span class="btn-label">Перейти в сервис</span>
-                <span class="btn-icon">
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M17.9241 6.61722C17.8757 6.50014 17.804 6.3904 17.7092 6.29502C17.7078 6.2936 17.7064 6.29219 17.705 6.29078C17.5242 6.11106 17.2751 6 17 6H7C6.44772 6 6 6.44772 6 7C6 7.55228 6.44772 8 7 8H14.5858L6.29289 16.2929C5.90237 16.6834 5.90237 17.3166 6.29289 17.7071C6.68342 18.0976 7.31658 18.0976 7.70711 17.7071L16 9.41421V17C16 17.5523 16.4477 18 17 18C17.5523 18 18 17.5523 18 17V7.00069C18 6.99969 18 6.998 18 6.997C17.9996 6.8625 17.9727 6.73425 17.9241 6.61722Z" fill="white"/>
-                  </svg>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
+             as that layer moves out of the way at the very end —
+             deliberately empty (just the page background), not a
+             duplicate of #pidPricing's own heading or cards. Tried
+             both (full head+grid, then head-only) and traced why
+             neither can read as duplicate-free: the pin is a fixed
+             100vh box that always takes a full viewport-height of
+             scroll to visually exit, and #pidPricing starts entering
+             from below the moment that scroll begins — so whatever
+             text sits in here is necessarily on screen AT THE SAME
+             TIME as the real heading arriving underneath it, for as
+             long as that scroll takes, no matter how tight the seam
+             (confirmed with real wheel-scroll traces, not just a
+             single frame). Any repeated wording is a real, visible
+             double-appearance during that overlap; there's no seam
+             tight enough to hide it. Leaving this empty means the
+             overlap is just background meeting background — nothing
+             repeats, because nothing here says anything the real
+             section is about to say again. #pidPricing still gets a
+             zeroed padding-top on desktop (see praktis-id.css) purely
+             to keep the hand-off snappy, not to line up any text. -->
+        <div class="pid-modules-cta-preview" aria-hidden="true"></div>
 
         <div class="pid-modules-slide" id="pidModulesSlide">
           <div class="pid-modules-viewport">
@@ -604,19 +625,212 @@
     </div>
   </section>
 
-  <section class="pid-section">
+  <section class="pid-section pid-pricing-section">
     <div class="wrap">
-      <div class="pid-cta-card" id="pidCta">
-        <h2>Начните управлять документами эффективно</h2>
-        <a class="btn btn-accent" href="#">
-          <span class="btn-label">Перейти в сервис</span>
-          <span class="btn-icon">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M17.9241 6.61722C17.8757 6.50014 17.804 6.3904 17.7092 6.29502C17.7078 6.2936 17.7064 6.29219 17.705 6.29078C17.5242 6.11106 17.2751 6 17 6H7C6.44772 6 6 6.44772 6 7C6 7.55228 6.44772 8 7 8H14.5858L6.29289 16.2929C5.90237 16.6834 5.90237 17.3166 6.29289 17.7071C6.68342 18.0976 7.31658 18.0976 7.70711 17.7071L16 9.41421V17C16 17.5523 16.4477 18 17 18C17.5523 18 18 17.5523 18 17V7.00069C18 6.99969 18 6.998 18 6.997C17.9996 6.8625 17.9727 6.73425 17.9241 6.61722Z" fill="white"/>
+      <div class="pid-section-head" id="pidPricingHead">
+        <p class="pid-eyebrow">Тарифы</p>
+        <h2>Сколько это стоит</h2>
+      </div>
+
+      <div class="pid-pricing-grid" id="pidPricing">
+        <div class="pid-pricing-card">
+          <h3>Пилот</h3>
+          <p class="pid-pricing-price">155 737,70 <span>руб.</span></p>
+          <p class="pid-pricing-period">Разовая оплата</p>
+          <ul class="pid-pricing-list">
+            <li>Ограниченный во времени и функционалу доступ</li>
+            <li>Тестирование системы</li>
+          </ul>
+          <button type="button" class="btn btn-accent pid-pricing-btn pid-join-trigger" data-tariff="Пилот">
+            <span class="btn-label">Подключить</span>
+            <span class="btn-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.9241 6.61722C17.8757 6.50014 17.804 6.3904 17.7092 6.29502C17.7078 6.2936 17.7064 6.29219 17.705 6.29078C17.5242 6.11106 17.2751 6 17 6H7C6.44772 6 6 6.44772 6 7C6 7.55228 6.44772 8 7 8H14.5858L6.29289 16.2929C5.90237 16.6834 5.90237 17.3166 6.29289 17.7071C6.68342 18.0976 7.31658 18.0976 7.70711 17.7071L16 9.41421V17C16 17.5523 16.4477 18 17 18C17.5523 18 18 17.5523 18 17V7.00069C18 6.99969 18 6.998 18 6.997C17.9996 6.8625 17.9727 6.73425 17.9241 6.61722Z" fill="white"/>
+              </svg>
+            </span>
+          </button>
+        </div>
+
+        <div class="pid-pricing-card">
+          <h3>Внедрение</h3>
+          <p class="pid-pricing-price">450 819,67 <span>руб.</span></p>
+          <p class="pid-pricing-period">Разовая оплата</p>
+          <ul class="pid-pricing-list">
+            <li>Обучение ключевых сотрудников по ВКС</li>
+            <li>Настройка системы под бизнес-процесс</li>
+            <li>Методологическое сопровождение</li>
+          </ul>
+          <button type="button" class="btn btn-accent pid-pricing-btn pid-join-trigger" data-tariff="Внедрение">
+            <span class="btn-label">Подключить</span>
+            <span class="btn-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.9241 6.61722C17.8757 6.50014 17.804 6.3904 17.7092 6.29502C17.7078 6.2936 17.7064 6.29219 17.705 6.29078C17.5242 6.11106 17.2751 6 17 6H7C6.44772 6 6 6.44772 6 7C6 7.55228 6.44772 8 7 8H14.5858L6.29289 16.2929C5.90237 16.6834 5.90237 17.3166 6.29289 17.7071C6.68342 18.0976 7.31658 18.0976 7.70711 17.7071L16 9.41421V17C16 17.5523 16.4477 18 17 18C17.5523 18 18 17.5523 18 17V7.00069C18 6.99969 18 6.998 18 6.997C17.9996 6.8625 17.9727 6.73425 17.9241 6.61722Z" fill="white"/>
+              </svg>
+            </span>
+          </button>
+        </div>
+
+        <div class="pid-pricing-card">
+          <h3>Лицензия</h3>
+          <p class="pid-pricing-price">61 475,41 <span>руб. / мес.</span></p>
+          <p class="pid-pricing-period">Ежемесячно</p>
+          <ul class="pid-pricing-list">
+            <li>Объект капитального строительства (ОКС) в контексте РНС</li>
+            <li>Неограниченное количество пользователей</li>
+            <li>Выделенная техническая поддержка</li>
+          </ul>
+          <button type="button" class="btn btn-accent pid-pricing-btn pid-join-trigger" data-tariff="Лицензия">
+            <span class="btn-label">Подключить</span>
+            <span class="btn-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.9241 6.61722C17.8757 6.50014 17.804 6.3904 17.7092 6.29502C17.7078 6.2936 17.7064 6.29219 17.705 6.29078C17.5242 6.11106 17.2751 6 17 6H7C6.44772 6 6 6.44772 6 7C6 7.55228 6.44772 8 7 8H14.5858L6.29289 16.2929C5.90237 16.6834 5.90237 17.3166 6.29289 17.7071C6.68342 18.0976 7.31658 18.0976 7.70711 17.7071L16 9.41421V17C16 17.5523 16.4477 18 17 18C17.5523 18 18 17.5523 18 17V7.00069C18 6.99969 18 6.998 18 6.997C17.9996 6.8625 17.9727 6.73425 17.9241 6.61722Z" fill="white"/>
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <p class="pid-pricing-fineprint">ПО является SaaS-решением: установка не требуется, сервис распространяется через интернет — специальные действия на стороне пользователя не нужны. Права использования предоставляются на основании лицензионных договоров. <a href="#">Тарифная политика</a></p>
+    </div>
+  </section>
+
+  <section class="pid-section pid-compliance-section">
+    <div class="wrap">
+      <div class="pid-section-head" id="pidComplianceHead">
+        <p class="pid-eyebrow">Соответствие</p>
+        <h2>Легально и безопасно</h2>
+      </div>
+
+      <div class="pid-compliance-grid" id="pidCompliance">
+        <div class="pid-compliance-card">
+          <span class="pid-compliance-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 3h8l4 4v14H7z"/>
+              <path d="M15 3v4h4"/>
+              <path d="M9.5 12.5l1.5 1.5 3-3"/>
             </svg>
           </span>
-        </a>
+          <div class="pid-compliance-body">
+            <h4>В реестре российского ПО</h4>
+            <p>Реестровая запись №29833 от 19.09.2025</p>
+          </div>
+        </div>
+
+        <div class="pid-compliance-card">
+          <span class="pid-compliance-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6l7-3z"/>
+              <rect x="9.5" y="10.5" width="5" height="4" rx="1"/>
+              <path d="M10.3 10.5V9a1.7 1.7 0 0 1 3.4 0v1.5"/>
+            </svg>
+          </span>
+          <div class="pid-compliance-body">
+            <h4>Аттестат соответствия ФСТЭК России</h4>
+            <p>Класс защищённости К2 · № Л024-00107-00/00581626.00024.2026</p>
+          </div>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <section class="services-section" id="products">
+    <div class="wrap">
+
+      <div class="pid-section-head" id="pidServicesHead">
+        <p class="pid-eyebrow">Все продукты экосистемы Практис</p>
+        <h2>Единая платформа</h2>
+      </div>
+
+      <div class="services-row" id="services-tenders">
+        <div class="services-heading">
+          <h2>Тендеры</h2>
+          <p>Цифровизация закупочных процедур от заявки до контракта: единая площадка, проверенные поставщики и полная аналитика по каждой закупке.</p>
+        </div>
+        <div class="services-tiles">
+          <a class="service-tile" href="https://etp.praktis.ru/" target="_blank" rel="noopener">
+            <img class="service-icon" src="assets/services/icon-08.png" alt="">
+            <div class="service-body">
+              <h4 class="service-title">Тендерная площадка</h4>
+              <p class="service-desc">Единая площадка для проведения закупок</p>
+            </div>
+          </a>
+          <a class="service-tile" href="https://finance.setltech.ru/" target="_blank" rel="noopener">
+            <img class="service-icon" src="assets/services/icon-12.png" alt="">
+            <div class="service-body">
+              <h4 class="service-title">Praktis.Finance</h4>
+              <p class="service-desc">Управление финансами строительных проектов</p>
+            </div>
+          </a>
+          <a class="service-tile" href="https://lkk.setlgroup.ru/" target="_blank" rel="noopener">
+            <img class="service-icon" src="assets/services/icon-04.png" alt="">
+            <div class="service-body">
+              <h4 class="service-title">Личный кабинет контрагента</h4>
+              <p class="service-desc">Аккредитация, договоры и акты</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="services-row" id="services-construction">
+        <div class="services-heading">
+          <h2>Управление строительством</h2>
+          <p>Контроль графика, ресурсов и качества на площадке — от диспетчеризации работ до отчётности прораба, в одном интерфейсе.</p>
+        </div>
+        <div class="services-tiles">
+          <a class="service-tile" href="https://setltech.ru/setlsoft" target="_blank" rel="noopener">
+            <img class="service-icon" src="assets/services/icon-09.png" alt="">
+            <div class="service-body">
+              <h4 class="service-title">ICONA</h4>
+              <p class="service-desc">Контроль работ и ресурсов в реальном времени</p>
+            </div>
+          </a>
+          <div class="service-tile is-disabled">
+            <img class="service-icon" src="assets/services/icon-02.png" alt="">
+            <div class="service-body">
+              <h4 class="service-title">BRIO MRS</h4>
+              <p class="service-desc">Календарное планирование этапов стройки</p>
+            </div>
+          </div>
+          <a class="service-tile" href="https://object.praktis.ru/" target="_blank" rel="noopener">
+            <img class="service-icon" src="assets/services/icon-06.png" alt="">
+            <div class="service-body">
+              <h4 class="service-title">Praktis.Object</h4>
+              <p class="service-desc">Структура объекта и планирование объёмов работ</p>
+            </div>
+          </a>
+          <a class="service-tile" href="https://catalog.praktis.ru/directories" target="_blank" rel="noopener">
+            <img class="service-icon" src="assets/services/icon-05.png" alt="">
+            <div class="service-body">
+              <h4 class="service-title">Практис.НСИ</h4>
+              <p class="service-desc">Централизованная нормативно-справочная информация</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="services-row" id="services-docs">
+        <div class="services-heading">
+          <h2>Документация</h2>
+          <p>Работа с исполнительной и проектной документацией без бумаги — от формирования ИД до архива в едином хранилище.</p>
+        </div>
+        <div class="services-tiles services-tiles--pair">
+          <a class="service-tile" href="praktis-id.html">
+            <img class="service-icon" src="assets/services/icon-07.png" alt="">
+            <div class="service-body">
+              <h4 class="service-title">Praktis.ID</h4>
+              <p class="service-desc">Ведение, подписание и комплектование ИД онлайн</p>
+            </div>
+          </a>
+          <a class="service-tile" href="https://ks.praktis.ru/" target="_blank" rel="noopener">
+            <img class="service-icon" src="assets/services/icon-03.png" alt="">
+            <div class="service-body">
+              <h4 class="service-title">Praktis.KS</h4>
+              <p class="service-desc">Актирование в цифровом виде</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -636,6 +850,64 @@
   </div>
 </footer>
 
+<div class="join-modal" id="pidJoinModal" hidden>
+  <div class="join-modal-backdrop" data-close></div>
+  <div class="join-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="pidJoinModalTitle">
+    <button type="button" class="join-modal-close" data-close aria-label="Закрыть">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <div class="join-modal-scroll">
+      <div class="join-form-state" id="pidJoinFormState">
+        <h3 class="join-modal-title" id="pidJoinModalTitle">Подключить тариф</h3>
+        <p class="join-modal-intro">Оставьте заявку — мы свяжемся с вами, чтобы уточнить детали и подготовить необходимые документы.</p>
+
+        <form class="join-form" id="pidJoinForm" novalidate>
+          <div class="join-field">
+            <label for="pidJoinName">ФИО</label>
+            <input type="text" id="pidJoinName" name="name" autocomplete="name" placeholder="Как мы можем к вам обращаться" required>
+          </div>
+          <div class="join-field">
+            <label for="pidJoinPhone">Телефон</label>
+            <input type="tel" id="pidJoinPhone" name="phone" autocomplete="tel">
+          </div>
+          <div class="join-field">
+            <label for="pidJoinEmail">Email</label>
+            <input type="email" id="pidJoinEmail" name="email" autocomplete="email" placeholder="mail@mail.ru">
+          </div>
+          <div class="join-field">
+            <label for="pidJoinMessage">Комментарий</label>
+            <textarea id="pidJoinMessage" name="message" rows="3"></textarea>
+          </div>
+
+          <p class="join-form-error" id="pidJoinFormError" hidden>Укажите ФИО и хотя бы один способ связи — телефон или email</p>
+
+          <button type="submit" class="btn btn-accent join-submit">
+            <span class="btn-label">Отправить</span>
+          </button>
+        </form>
+      </div>
+
+      <div class="join-success-state" id="pidJoinSuccess" hidden>
+        <svg class="join-success-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="23" stroke="currentColor" stroke-width="2"/>
+          <path d="M14 24.5L20.5 31L34 17" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <p class="join-success-text">Спасибо! Мы свяжемся с Вами очень скоро</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button type="button" class="scroll-top" id="scrollTop" aria-label="Наверх страницы" hidden>
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 19V5M12 5L6 11M12 5L18 11" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.11.2/build/js/intlTelInputWithUtils.min.js"></script>
 <script src="praktis-id.js"></script>
 </body>
 </html>
