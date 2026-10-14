@@ -69,6 +69,12 @@
 
 Везде используется `prefers-reduced-motion` — при reduce все анимации отключаются, контент показывается сразу в финальном состоянии.
 
+## Шрифты (с 2026-10-14, брендбук Setl Tech)
+
+- **Заголовки** — TT Commons Pro Expanded (400/600/700), токен `--font-heading`. Файлы `assets/fonts/TTCommonsProExpanded-*.woff2` — сконвертированы из OTF заказчика (`/Users/anastasiia/Hurmen/Setl Tech/Fonts/`) и урезаны до латиницы+кириллицы+пунктуации+₽ (~50 КБ на начертание). Применяется к h1–h6/.h1–.h6, `.path-node-label`, цифрам статистики (`.stats-item-number`, `.stats-plate-*-item`) и `.pid-pricing-price`. DemiBold предзагружается (`<link rel=preload>` — URL обязан совпадать с `url()` в @font-face, включая `?v=`).
+- **Основной текст** — Montserrat с Google Fonts (400/500/600/700), токен `--font-body`, задан на `body`; кнопки и поля наследуют его через `font: inherit`.
+- ⚠️ Лицензия TT Commons — у Setl; шрифт на нашем сайте-превью только для показа заказчику.
+
 ## styles.css — структура (с комментариями внутри файла)
 
 `:root` переменные → тайпскейл (h1–h6, clamp) → `.wrap`/базовые сбросы → Header → Buttons (`.btn-accent`/`.btn-stroke`) → Hero (`.hero-*`, `.tiles-row`, `.trust-card`) → **Stats section** (`.stats-*`, добавлена 2026-09-04, статичная сетка + анимированные `.stats-pin-wrap`/`.stats-plate`/`.stats-text-*`) → Services section (`.services-*`) → **Orbit/Path section** (`.path-*`, самый длинный блок, комментарии объясняют scroll-jack механику) → Stack section (`.stack-*`) → Footer → Responsive (`@media 900px`, `640px`, `560px`).

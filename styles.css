@@ -1,3 +1,29 @@
+/* Шрифты по брендбуку Setl Tech: заголовки — TT Commons Pro Expanded,
+   основной текст — Montserrat (Google Fonts) */
+@font-face {
+  font-family: "TT Commons Pro Expanded";
+  src: url("assets/fonts/TTCommonsProExpanded-Regular.woff2?v=20261014") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Commons Pro Expanded";
+  src: url("assets/fonts/TTCommonsProExpanded-DemiBold.woff2?v=20261014") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Commons Pro Expanded";
+  src: url("assets/fonts/TTCommonsProExpanded-Bold.woff2?v=20261014") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Primary */
   --red-main: #CF3A40;
@@ -21,6 +47,9 @@
   --icon-muted: var(--warm-300);
   /* Скругления: компромисс между прежними мягкими (20px, «таблетки»)
      и почти прямыми углами корпоративного сайта Setl */
+  --font-heading: "TT Commons Pro Expanded", "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
   --radius-card: 12px;
   --radius-control: 8px;
   --radius-sm: 6px;
@@ -36,7 +65,7 @@
 body {
   margin: 0;
   overflow-x: hidden;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-body);
   color: var(--ink);
   background: var(--color-background);
   -webkit-font-smoothing: antialiased;
@@ -44,6 +73,17 @@ body {
 
 /* Type scale — reusable heading styles (Inter, sizes/weights lifted from
    the Figma redesign) meant to carry over to future ad-landing pages. */
+
+/* Всё, что читается как заголовок или крупная цифра, — брендовый
+   широкий шрифт; остальной текст наследует Montserrat от body. */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+.path-node-label,
+.stats-item-number,
+.stats-plate-active-item,
+.stats-plate-ghost-item {
+  font-family: var(--font-heading);
+}
 
 h1, .h1 {
   margin: 0;
@@ -375,9 +415,7 @@ img { display: block; max-width: 100%; }
 
 .tile-card:hover,
 .tile-card:focus-visible {
-  border-color: var(--red-main);
   outline: none;
-  background: var(--warm-50);
   box-shadow: 0 16px 32px rgba(42, 38, 34, 0.1);
 }
 

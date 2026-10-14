@@ -930,6 +930,7 @@
 .pid-pricing-card h3 { margin: 0 0 12px; font-size: 19px; }
 
 .pid-pricing-price {
+  font-family: var(--font-heading);
   margin: 0;
   font-size: clamp(24px, 2.2vw, 30px);
   font-weight: 800;
