@@ -1,0 +1,54 @@
+/* Privacy policy page — plain legal prose, not a marketing section, so
+   it deliberately skips the site's big centered .pid-section-head
+   treatment: a left-aligned title, sober body copy, numbered <h2>
+   sections. Reuses styles.css for header/footer/tokens/.wrap only. */
+
+.privacy-section {
+  padding: clamp(40px, 5vw, 72px) 0 clamp(56px, 7vw, 96px);
+}
+
+.privacy-wrap {
+  max-width: 760px;
+}
+
+.privacy-wrap h1 {
+  margin: 0 0 8px;
+}
+
+.privacy-updated {
+  margin: 0 0 clamp(24px, 3vw, 40px);
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.privacy-wrap h2 {
+  margin: clamp(32px, 3.5vw, 48px) 0 16px;
+  font-size: clamp(20px, 1.8vw, 26px);
+}
+
+.privacy-wrap p {
+  margin: 0 0 16px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--ink);
+}
+
+.privacy-wrap ul {
+  margin: 0 0 16px;
+  padding-left: 22px;
+}
+
+.privacy-wrap li {
+  margin-bottom: 8px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.privacy-wrap a {
+  color: var(--red-main);
+}
+
+.privacy-wrap strong {
+  font-weight: 600;
+}

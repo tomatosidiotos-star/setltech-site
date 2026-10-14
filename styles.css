@@ -1,13 +1,29 @@
 :root {
-  --accent: #3c83f6;
-  --accent-dark: #2f6ad1;
-  --ink: #41484a;
-  --ink-soft: #66788c;
-  --bg: #f5f8fb;
-  --surface: #ffffff;
-  --line: #eaf0f5;
-  --icon-muted: #c1d0df;
-  --radius-card: 20px;
+  /* Primary */
+  --red-main: #CF3A40;
+  --red-dark: #B32F35;
+
+  /* Тёплая серая шкала — вместо прежних серо-голубых */
+  --warm-50: #F3F1EE;
+  --warm-100: #E9E6E2;
+  --warm-300: #CBC5BE;
+  --warm-500: #7A736C;
+  --warm-600: #5A544E;
+  --warm-800: #3E3A36;
+  --warm-900: #2A2622;
+
+  --color-background: #F6F6F6;
+  --color-surface: #FFFFFF;
+
+  --ink: var(--warm-800);
+  --ink-soft: var(--warm-500);
+  --line: var(--warm-100);
+  --icon-muted: var(--warm-300);
+  /* Скругления: компромисс между прежними мягкими (20px, «таблетки»)
+     и почти прямыми углами корпоративного сайта Setl */
+  --radius-card: 12px;
+  --radius-control: 8px;
+  --radius-sm: 6px;
   --wrap: 1856px;
 }
 
@@ -22,7 +38,7 @@ body {
   overflow-x: hidden;
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--ink);
-  background: var(--bg);
+  background: var(--color-background);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -96,7 +112,7 @@ img { display: block; max-width: 100%; }
   width: 100%;
   align-items: center;
   gap: clamp(12px, 1.5vw, 24px);
-  background: var(--surface);
+  background: var(--color-surface);
   border-radius: var(--radius-card);
   height: clamp(56px, 5.7vw, 78px);
   padding: 12px clamp(14px, 1.7vw, 24px);
@@ -133,38 +149,38 @@ img { display: block; max-width: 100%; }
 }
 
 .btn-accent {
-  background: var(--accent);
-  border-radius: 999px;
+  background: var(--red-main);
+  border-radius: var(--radius-control);
   justify-content: center;
 }
 
 .btn-accent:hover,
 .btn-accent:focus-visible {
   transform: translateY(-3px);
-  box-shadow: 0 14px 28px rgba(60, 131, 246, 0.32);
+  box-shadow: 0 14px 28px rgba(207, 58, 64, 0.32);
 }
 
 .btn-accent .btn-icon { background: #fff; }
-.btn-accent .btn-icon svg path { fill: var(--accent); }
+.btn-accent .btn-icon svg path { fill: var(--red-main); }
 
 /* Stroke variant — outline pill, ported from Setl Tech's .btn-stroke
    with black swapped for our accent blue. Quieter secondary CTA: sits
    next to a solid .btn-accent without doubling up the loud fill. */
 .btn-stroke {
   background: transparent;
-  border: 1.5px solid var(--accent);
-  border-radius: 999px;
+  border: 1.5px solid var(--red-main);
+  border-radius: var(--radius-control);
   justify-content: center;
 }
 
-.btn-stroke .btn-label { color: var(--accent); }
-.btn-stroke .btn-icon { background: var(--accent); }
+.btn-stroke .btn-label { color: var(--red-main); }
+.btn-stroke .btn-icon { background: var(--red-main); }
 
 .btn-stroke:hover,
 .btn-stroke:focus-visible {
   transform: translateY(-3px);
-  box-shadow: 0 14px 28px rgba(60, 131, 246, 0.2);
-  background: #f4f8ff;
+  box-shadow: 0 14px 28px rgba(207, 58, 64, 0.32);
+  background: var(--warm-50);
 }
 
 .btn-label {
@@ -179,12 +195,12 @@ img { display: block; max-width: 100%; }
   z-index: 2;
   width: 32px;
   height: 32px;
-  border-radius: 50%;
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  background: #16213d;
+  background: var(--warm-900);
 }
 
 .btn-icon svg {
@@ -241,7 +257,7 @@ img { display: block; max-width: 100%; }
   border-radius: var(--radius-card);
   overflow: hidden;
   border: 1px solid #fff;
-  background: var(--surface);
+  background: var(--color-surface);
 }
 
 .hero-video {
@@ -262,7 +278,7 @@ img { display: block; max-width: 100%; }
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.7s ease, transform 0.7s ease;
-  filter: drop-shadow(0 2px 12px rgba(10, 30, 60, 0.25));
+  filter: drop-shadow(0 2px 12px rgba(42, 38, 34, 0.25));
 }
 
 .hero-video-logo.is-visible {
@@ -283,7 +299,7 @@ img { display: block; max-width: 100%; }
 
 .hero-card {
   flex: 0 0 auto;
-  background: var(--surface);
+  background: var(--color-surface);
   border-radius: var(--radius-card);
   display: flex;
   align-items: center;
@@ -303,7 +319,7 @@ img { display: block; max-width: 100%; }
   gap: 16px;
 }
 
-.hero-heading h1 .accent { color: var(--accent); }
+.hero-heading h1 .accent { color: var(--red-main); }
 
 .hero-sub {
   margin: 0;
@@ -334,7 +350,7 @@ img { display: block; max-width: 100%; }
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-  background: var(--surface);
+  background: var(--color-surface);
   border: 1px solid transparent;
   border-radius: var(--radius-card);
   padding: 24px;
@@ -359,10 +375,10 @@ img { display: block; max-width: 100%; }
 
 .tile-card:hover,
 .tile-card:focus-visible {
-  border-color: var(--accent);
+  border-color: var(--red-main);
   outline: none;
-  background: #f4f8ff;
-  box-shadow: 0 16px 32px rgba(60, 131, 246, 0.16);
+  background: var(--warm-50);
+  box-shadow: 0 16px 32px rgba(42, 38, 34, 0.1);
 }
 
 .tile-card.is-revealed:hover,
@@ -400,7 +416,7 @@ img { display: block; max-width: 100%; }
   gap: 12px;
 }
 
-.tile-title { color: var(--accent); }
+.tile-title { color: var(--red-main); }
 
 .tile-desc {
   margin: 0;
@@ -415,7 +431,7 @@ img { display: block; max-width: 100%; }
 
 .trust-card {
   flex: 0 0 auto;
-  background: var(--surface);
+  background: var(--color-surface);
   border-radius: var(--radius-card);
   display: flex;
   flex-direction: column;
@@ -514,14 +530,14 @@ img { display: block; max-width: 100%; }
   gap: 16px;
   padding: clamp(24px, 2.5vw, 32px);
   border-radius: var(--radius-card);
-  background: var(--surface);
+  background: var(--color-surface);
 }
 
 .stats-item-number {
   font-size: clamp(40px, 4.4vw, 56px);
   font-weight: 800;
   line-height: 1;
-  color: var(--accent);
+  color: var(--red-main);
 }
 
 .stats-item-body {
@@ -570,7 +586,7 @@ img { display: block; max-width: 100%; }
   width: clamp(220px, 30%, 380px);
   aspect-ratio: 1 / 1;
   border-radius: var(--radius-card);
-  background: var(--accent);
+  background: var(--red-main);
 }
 
 .stats-plate-ghost {
@@ -594,7 +610,7 @@ img { display: block; max-width: 100%; }
   font-size: clamp(44px, 6.4vw, 92px);
   line-height: 1;
   white-space: nowrap;
-  color: rgba(60, 131, 246, 0.14);
+  color: rgba(207, 58, 64, 0.14);
 }
 
 .stats-plate-mask {
@@ -635,7 +651,7 @@ img { display: block; max-width: 100%; }
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  background: var(--surface);
+  background: var(--color-surface);
   border-radius: var(--radius-card);
   padding: clamp(28px, 3.5vw, 48px);
 }
@@ -691,7 +707,7 @@ img { display: block; max-width: 100%; }
   grid-template-columns: minmax(240px, 1fr) 1.7fr;
   gap: clamp(24px, 3vw, 48px);
   align-items: center;
-  background: var(--surface);
+  background: var(--color-surface);
   border-radius: var(--radius-card);
   padding: clamp(28px, 3.5vw, 48px);
 }
@@ -742,7 +758,7 @@ img { display: block; max-width: 100%; }
   padding: 24px;
   border-radius: var(--radius-card);
   border: 1px solid transparent;
-  background: var(--bg);
+  background: var(--color-background);
   text-align: left;
   opacity: 0;
   transform: translateX(-48px);
@@ -761,10 +777,10 @@ img { display: block; max-width: 100%; }
 
 .service-tile:hover,
 .service-tile:focus-visible {
-  border-color: var(--accent);
+  border-color: var(--red-main);
   outline: none;
-  background: #f4f8ff;
-  box-shadow: 0 16px 32px rgba(60, 131, 246, 0.16);
+  background: var(--warm-50);
+  box-shadow: 0 16px 32px rgba(42, 38, 34, 0.1);
 }
 
 .service-tile.is-revealed:hover,
@@ -796,7 +812,7 @@ img { display: block; max-width: 100%; }
   font-size: clamp(17px, 1.3vw, 20px);
   font-weight: 600;
   line-height: 1.25;
-  color: var(--accent);
+  color: var(--red-main);
 }
 
 .service-desc {
@@ -843,12 +859,12 @@ img { display: block; max-width: 100%; }
 
 .path-section {
   padding: clamp(24px, 3.1vw, 32px) 0;
-  background: var(--bg);
+  background: var(--color-background);
 }
 
 /* On the pinned desktop layout, the sticky box takes a moment to
    scroll fully out of view even after it un-pins, and this bottom
-   padding would show through as a stray strip of --bg right in the
+   padding would show through as a stray strip of --color-background right in the
    middle of the white circle → white block 3 handoff. Not an issue on
    the static mobile layout, where it's ordinary breathing room before
    the next section, so it's only zeroed out here. */
@@ -929,7 +945,7 @@ img { display: block; max-width: 100%; }
   top: 0;
   height: 2px;
   width: 0;
-  background: var(--accent);
+  background: var(--red-main);
   z-index: 0;
 }
 
@@ -993,7 +1009,7 @@ img { display: block; max-width: 100%; }
 .path-node-stem {
   width: 2px;
   height: 80px;
-  background: var(--accent);
+  background: var(--red-main);
   opacity: 0;
   transition: opacity 0.25s ease;
 }
@@ -1009,11 +1025,11 @@ img { display: block; max-width: 100%; }
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--red-main);
   color: #fff;
   font-weight: 600;
   font-size: 15px;
-  box-shadow: 0 8px 20px rgba(60, 131, 246, 0.28);
+  box-shadow: 0 8px 20px rgba(207, 58, 64, 0.28);
   opacity: 0;
   transform: scale(0.5);
   transition: opacity 0.25s ease, transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -1047,7 +1063,7 @@ img { display: block; max-width: 100%; }
   gap: 8px;
   padding: 20px;
   border-radius: var(--radius-card);
-  background: var(--surface);
+  background: var(--color-surface);
   border: 1px solid transparent;
   opacity: 0;
   transform: translateY(16px);
@@ -1061,10 +1077,10 @@ img { display: block; max-width: 100%; }
 
 .path-service:not(.path-service-video):hover,
 .path-service:not(.path-service-video):focus-visible {
-  border-color: var(--accent);
+  border-color: var(--red-main);
   outline: none;
-  background: #f4f8ff;
-  box-shadow: 0 16px 32px rgba(60, 131, 246, 0.16);
+  background: var(--warm-50);
+  box-shadow: 0 16px 32px rgba(42, 38, 34, 0.1);
 }
 
 .path-service.is-revealed:not(.path-service-video):hover,
@@ -1082,7 +1098,7 @@ img { display: block; max-width: 100%; }
   margin: 0;
   font-size: clamp(16px, 1.3vw, 19px);
   font-weight: 600;
-  color: var(--accent);
+  color: var(--red-main);
   line-height: 1.3;
 }
 
@@ -1133,7 +1149,7 @@ img { display: block; max-width: 100%; }
   width: 12px;
   height: 12px;
   border-radius: 4px;
-  border: 1.5px solid var(--accent);
+  border: 1.5px solid var(--red-main);
 }
 
 /* Item count alone doesn't predict whether a list fits this fixed-
@@ -1241,7 +1257,7 @@ img { display: block; max-width: 100%; }
   .path-stage { scroll-snap-align: center; }
 }
 
-/* Stages with more than one card (5: ICONA/BRIO/Object/Справочники, 6:
+/* Stages with more than one card (5: ICONA/Object/Справочники, 6:
    ID/KS) get their own tiny horizontal scroller here instead of
    wrapping 2-per-row — one card in focus, the next peeking in at the
    edge so the swipe reads as "more cards here," not "that's
@@ -1292,7 +1308,7 @@ img { display: block; max-width: 100%; }
 .stack-section {
   position: relative;
   height: 480vh;
-  background: var(--surface);
+  background: var(--color-surface);
 }
 
 .stack-sticky {
@@ -1343,10 +1359,10 @@ img { display: block; max-width: 100%; }
   aspect-ratio: 4 / 5;
   margin-top: calc(-1 * clamp(300px, 30vw, 475px) / 2);
   margin-left: calc(-1 * clamp(240px, 24vw, 380px) / 2);
-  border-radius: 26px;
+  border-radius: var(--radius-card);
   overflow: hidden;
-  border: 1px solid rgba(191, 219, 254, 0.55);
-  box-shadow: 0 16px 32px rgba(60, 131, 246, 0.16);
+  border: 1px solid var(--warm-100);
+  box-shadow: 0 16px 32px rgba(42, 38, 34, 0.1);
   will-change: transform;
   backface-visibility: hidden;
 }
@@ -1366,7 +1382,7 @@ img { display: block; max-width: 100%; }
 .stack-content {
   width: 100%;
   height: 100%;
-  background: var(--accent);
+  background: var(--red-main);
   color: #fff;
   padding: clamp(20px, 2.2vw, 28px);
   display: flex;
@@ -1441,7 +1457,7 @@ img { display: block; max-width: 100%; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--surface);
+  background: var(--color-surface);
   border-radius: var(--radius-card) var(--radius-card) 0 0;
   min-height: clamp(72px, 5.3vw, 102px);
   padding: 20px clamp(14px, 1.7vw, 24px);
@@ -1482,8 +1498,8 @@ img { display: block; max-width: 100%; }
   width: 48px;
   height: 48px;
   border: 0;
-  border-radius: 50%;
-  background: var(--accent);
+  border-radius: var(--radius-control);
+  background: var(--red-main);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1503,7 +1519,7 @@ img { display: block; max-width: 100%; }
 .scroll-top.is-visible:hover,
 .scroll-top.is-visible:focus-visible {
   transform: translateY(-3px);
-  box-shadow: 0 14px 28px rgba(60, 131, 246, 0.32);
+  box-shadow: 0 14px 28px rgba(207, 58, 64, 0.32);
 }
 
 .scroll-top svg { width: 20px; height: 20px; }
@@ -1541,7 +1557,7 @@ img { display: block; max-width: 100%; }
 .join-modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(15, 23, 42, 0.55);
+  background: rgba(42, 38, 34, 0.55);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -1561,9 +1577,9 @@ img { display: block; max-width: 100%; }
      border-radius on its own, so without this it ran the dialog's
      full height straight through the curved corners. */
   overflow: hidden;
-  background: var(--surface);
+  background: var(--color-surface);
   border-radius: var(--radius-card);
-  box-shadow: 0 32px 64px rgba(15, 23, 42, 0.28), 0 8px 24px rgba(15, 23, 42, 0.12);
+  box-shadow: 0 32px 64px rgba(42, 38, 34, 0.28), 0 8px 24px rgba(42, 38, 34, 0.12);
   opacity: 0;
   transform: scale(0.94) translateY(16px);
   transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1), transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
@@ -1597,8 +1613,8 @@ img { display: block; max-width: 100%; }
   align-items: center;
   justify-content: center;
   border: 0;
-  border-radius: 50%;
-  background: var(--bg);
+  border-radius: var(--radius-control);
+  background: var(--color-background);
   color: var(--ink-soft);
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease;
@@ -1606,8 +1622,8 @@ img { display: block; max-width: 100%; }
 
 .join-modal-close:hover,
 .join-modal-close:focus-visible {
-  background: #f4f8ff;
-  color: var(--accent);
+  background: var(--warm-50);
+  color: var(--red-main);
   outline: none;
 }
 
@@ -1657,7 +1673,8 @@ img { display: block; max-width: 100%; }
 .join-modal.is-open .join-field:nth-of-type(2) { transition-delay: 0.25s; }
 .join-modal.is-open .join-field:nth-of-type(3) { transition-delay: 0.31s; }
 .join-modal.is-open .join-field:nth-of-type(4) { transition-delay: 0.37s; }
-.join-modal.is-open .join-submit { transition-delay: 0.43s; }
+.join-modal.is-open .join-field:nth-of-type(5) { transition-delay: 0.43s; }
+.join-modal.is-open .join-submit { transition-delay: 0.49s; }
 
 .join-form {
   display: flex;
@@ -1681,20 +1698,20 @@ img { display: block; max-width: 100%; }
 .join-field textarea {
   width: 100%;
   border: 1.5px solid var(--line);
-  border-radius: 12px;
+  border-radius: var(--radius-control);
   padding: 12px 14px;
   font: inherit;
   font-size: 15px;
   color: var(--ink);
-  background: var(--bg);
+  background: var(--color-background);
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .join-field input:focus-visible,
 .join-field textarea:focus-visible {
   outline: none;
-  border-color: var(--accent);
-  background: var(--surface);
+  border-color: var(--red-main);
+  background: var(--color-surface);
 }
 
 .join-field input[aria-invalid="true"],
@@ -1715,6 +1732,42 @@ img { display: block; max-width: 100%; }
 
 .join-field .iti input {
   width: 100%;
+}
+
+/* Consent checkbox (152-ФЗ requires it next to any phone/personal-data
+   field): plain native checkbox, not a custom-built one — accent-color
+   is enough to match the site's palette while keeping full native
+   keyboard/screen-reader semantics, which matter more here than on a
+   purely decorative control. Whole row is one <label> so clicking the
+   text also toggles it. */
+.join-consent-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.join-consent-label input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin: 1px 0 0;
+  accent-color: var(--red-main);
+  cursor: pointer;
+}
+
+.join-consent-label a {
+  color: var(--red-main);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.join-consent-label input[aria-invalid="true"] {
+  outline: 2px solid #e0554f;
+  outline-offset: 2px;
 }
 
 /* Every .join-field above gets `transform` for its own reveal
@@ -1770,7 +1823,7 @@ img { display: block; max-width: 100%; }
 .join-success-icon {
   width: 56px;
   height: 56px;
-  color: var(--accent);
+  color: var(--red-main);
 }
 
 .join-success-text {
@@ -1792,8 +1845,8 @@ body.join-modal-lock {
 /* intl-tel-input theming: swap its default palette for the site's. */
 .join-modal-dialog {
   --iti-border-color: var(--line);
-  --iti-dropdown-bg: var(--surface);
-  --iti-hover-color: #f4f8ff;
+  --iti-dropdown-bg: var(--color-surface);
+  --iti-hover-color: var(--warm-50);
   --iti-arrow-color: var(--ink-soft);
 }
 

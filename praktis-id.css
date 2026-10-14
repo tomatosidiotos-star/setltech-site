@@ -1,5 +1,5 @@
 /* Praktis.ID — internal service page. Loads after styles.css and reuses
-   its tokens (--accent/--ink/--bg/--radius-card) plus the site's reveal
+   its tokens (--red-main/--ink/--color-background/--radius-card) plus the site's reveal
    convention: default state opacity:0 + transform, a state class flips
    it, transition curve is always cubic-bezier(0.22,1,0.36,1). */
 
@@ -20,7 +20,7 @@
 .breadcrumb.is-revealed { opacity: 1; transform: none; }
 
 .breadcrumb a { color: var(--ink-soft); transition: color 0.2s ease; }
-.breadcrumb a:hover, .breadcrumb a:focus-visible { color: var(--accent); }
+.breadcrumb a:hover, .breadcrumb a:focus-visible { color: var(--red-main); }
 .breadcrumb-sep { color: var(--icon-muted); }
 .breadcrumb-current { color: var(--ink); font-weight: 500; }
 
@@ -41,7 +41,7 @@
 .pid-hero-card {
   max-width: 1440px;
   margin: 0 auto;
-  background: var(--surface);
+  background: var(--color-surface);
   border-radius: var(--radius-card);
   padding: clamp(48px, 7vw, 96px) clamp(24px, 4vw, 64px) calc(clamp(32px, 4vw, 56px) + var(--slide-h-half));
   display: flex;
@@ -176,10 +176,10 @@
   margin: 0;
   width: min(930px, 92vw);
   aspect-ratio: 931 / 483;
-  background: var(--surface);
-  outline: 10px solid #4b5967;
+  background: var(--color-surface);
+  outline: 10px solid var(--warm-600);
   outline-offset: 0;
-  border-radius: 30px;
+  border-radius: var(--radius-card);
   overflow: hidden;
   opacity: 0.45;
   transform: scale(0.86);
@@ -206,9 +206,9 @@
   transform: translateY(-50%);
   width: 52px;
   height: 52px;
-  border-radius: 50%;
+  border-radius: var(--radius-control);
   border: 0;
-  background: var(--accent);
+  background: var(--red-main);
   color: #fff;
   display: flex;
   align-items: center;
@@ -222,8 +222,8 @@
 
 .pid-slider-arrow:hover,
 .pid-slider-arrow:focus-visible {
-  background: var(--accent-dark);
-  box-shadow: 0 12px 24px rgba(60, 131, 246, 0.32);
+  background: var(--red-dark);
+  box-shadow: 0 12px 24px rgba(207, 58, 64, 0.32);
   transform: translateY(-50%) scale(1.08);
 }
 
@@ -255,7 +255,7 @@
 }
 
 .pid-dot.is-active {
-  background: var(--accent);
+  background: var(--red-main);
   transform: scale(1.25);
 }
 
@@ -283,7 +283,7 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--red-main);
 }
 
 .pid-section-head p {
@@ -315,7 +315,7 @@
   max-width: var(--wrap);
   margin: 0 auto;
   padding: clamp(28px, 3.4vw, 48px) clamp(16px, 1.7vw, 32px);
-  background: var(--surface);
+  background: var(--color-surface);
   border-radius: var(--radius-card);
 }
 
@@ -459,7 +459,7 @@
 }
 
 .pid-compare-col {
-  background: var(--surface);
+  background: var(--color-surface);
   border-radius: var(--radius-card);
   padding: clamp(24px, 2.6vw, 36px);
   display: flex;
@@ -476,7 +476,7 @@
 }
 
 .pid-compare-col--bad .pid-compare-label { color: #d3454f; }
-.pid-compare-col--good .pid-compare-label { color: var(--accent); }
+.pid-compare-col--good .pid-compare-label { color: var(--red-main); }
 
 .pid-compare-row {
   display: flex;
@@ -501,7 +501,7 @@
   flex-shrink: 0;
   width: 22px;
   height: 22px;
-  border-radius: 50%;
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -510,7 +510,7 @@
 .pid-compare-icon svg { width: 12px; height: 12px; }
 
 .pid-compare-col--bad .pid-compare-icon { background: rgba(211, 69, 79, 0.12); color: #d3454f; }
-.pid-compare-col--good .pid-compare-icon { background: rgba(60, 131, 246, 0.12); color: var(--accent); }
+.pid-compare-col--good .pid-compare-icon { background: rgba(207, 58, 64, 0.12); color: var(--red-main); }
 
 /* Features grid — 8 cards, same fly-in-from-left + hover lift as
    .service-tile on the homepage catalog. */
@@ -522,7 +522,7 @@
 }
 
 .pid-feature-card {
-  background: var(--surface);
+  background: var(--color-surface);
   border: 1px solid transparent;
   border-radius: var(--radius-card);
   padding: 24px;
@@ -542,16 +542,16 @@
 
 .pid-feature-card:hover,
 .pid-feature-card:focus-visible {
-  border-color: var(--accent);
-  box-shadow: 0 16px 32px rgba(60, 131, 246, 0.16);
+  border-color: var(--red-main);
+  box-shadow: 0 16px 32px rgba(42, 38, 34, 0.1);
 }
 
 .pid-feature-icon {
   width: 48px;
   height: 48px;
-  border-radius: 50%;
-  background: rgba(60, 131, 246, 0.1);
-  color: var(--accent);
+  border-radius: var(--radius-control);
+  background: rgba(207, 58, 64, 0.1);
+  color: var(--red-main);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -559,7 +559,7 @@
 }
 
 .pid-feature-card:hover .pid-feature-icon {
-  background: var(--accent);
+  background: var(--red-main);
   color: #fff;
   transform: scale(1.08);
 }
@@ -592,7 +592,7 @@
 }
 
 .pid-benefit-card {
-  background: var(--surface);
+  background: var(--color-surface);
   border-radius: var(--radius-card);
   padding: 24px;
   display: flex;
@@ -608,9 +608,9 @@
 .pid-benefit-icon {
   width: 44px;
   height: 44px;
-  border-radius: 12px;
-  background: rgba(60, 131, 246, 0.1);
-  color: var(--accent);
+  border-radius: var(--radius-control);
+  background: rgba(207, 58, 64, 0.1);
+  color: var(--red-main);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -660,7 +660,7 @@
 .pid-modules-section { position: relative; }
 
 .pid-modules-pin {
-  background: var(--accent);
+  background: var(--red-main);
   max-width: var(--wrap);
   margin: 0 auto;
   padding: clamp(28px, 3.4vw, 48px) clamp(16px, 1.7vw, 32px);
@@ -670,9 +670,9 @@
 
 /* Solid accent background needs its own light-on-blue treatment:
    white headings, translucent white for secondary text/the divider
-   line (the default --ink/--ink-soft/--line/--accent tokens below are
+   line (the default --ink/--ink-soft/--line/--red-main tokens below are
    tuned for the light page background and disappear or clash against
-   solid --accent). */
+   solid --red-main). */
 
 .pid-modules-head { margin: 0 0 24px; }
 .pid-modules-head .pid-eyebrow { margin: 0 0 8px; text-align: left; color: rgba(255, 255, 255, 0.8); }
@@ -697,7 +697,7 @@
 .pid-modules-shot {
   border-radius: var(--radius-card);
   overflow: hidden;
-  background: var(--surface);
+  background: var(--color-surface);
   aspect-ratio: 16 / 9;
 }
 
@@ -776,7 +776,7 @@
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: var(--bg);
+    background: var(--color-background);
   }
 
   /* Carries the section's own accent background and everything that
@@ -790,7 +790,7 @@
     z-index: 2;
     display: flex;
     align-items: center;
-    background: var(--accent);
+    background: var(--red-main);
     will-change: transform;
   }
 
@@ -915,7 +915,7 @@
 }
 
 .pid-pricing-card {
-  background: var(--surface);
+  background: var(--color-surface);
   border-radius: var(--radius-card);
   padding: 28px;
   display: flex;
@@ -933,7 +933,7 @@
   margin: 0;
   font-size: clamp(24px, 2.2vw, 30px);
   font-weight: 800;
-  color: var(--accent);
+  color: var(--red-main);
   line-height: 1.15;
 }
 
@@ -979,7 +979,7 @@
   width: 12px;
   height: 12px;
   border-radius: 4px;
-  border: 1.5px solid var(--accent);
+  border: 1.5px solid var(--red-main);
 }
 
 /* .pid-pricing-card has no explicit align-items, so it defaults to
@@ -1008,7 +1008,7 @@
   color: var(--ink-soft);
 }
 
-.pid-pricing-fineprint a { color: var(--accent); }
+.pid-pricing-fineprint a { color: var(--red-main); }
 
 /* Compliance — 2-up "trust badge" strip closing the page: registry
    listing + FSTEC certification. Horizontal icon+text layout (not the
@@ -1023,7 +1023,7 @@
 }
 
 .pid-compliance-card {
-  background: var(--surface);
+  background: var(--color-surface);
   border-radius: var(--radius-card);
   padding: 28px;
   display: flex;
@@ -1040,9 +1040,9 @@
   flex-shrink: 0;
   width: 52px;
   height: 52px;
-  border-radius: 50%;
-  background: rgba(60, 131, 246, 0.1);
-  color: var(--accent);
+  border-radius: var(--radius-control);
+  background: rgba(207, 58, 64, 0.1);
+  color: var(--red-main);
   display: flex;
   align-items: center;
   justify-content: center;

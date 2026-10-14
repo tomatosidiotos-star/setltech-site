@@ -519,6 +519,7 @@ if (!reduceMotion) {
   const emailInput = document.getElementById("pidJoinEmail");
   const phoneInput = document.getElementById("pidJoinPhone");
   const messageInput = document.getElementById("pidJoinMessage");
+  const consentInput = document.getElementById("pidJoinConsent");
 
   const OPEN_DELAY = reduceMotion ? 0 : 20;
   const CLOSE_DURATION = reduceMotion ? 0 : 350;
@@ -591,7 +592,7 @@ if (!reduceMotion) {
     if (iti) iti.setCountry("ru");
     autoGrow();
     errorEl.hidden = true;
-    [nameInput, emailInput, phoneInput].forEach((el) => setInvalid(el, false));
+    [nameInput, emailInput, phoneInput, consentInput].forEach((el) => setInvalid(el, false));
     successState.hidden = true;
     successState.classList.remove("is-shown");
     formState.hidden = false;
@@ -641,6 +642,7 @@ if (!reduceMotion) {
 
   emailInput.addEventListener("blur", () => setInvalid(emailInput, !emailOk()));
   phoneInput.addEventListener("blur", () => setInvalid(phoneInput, !phoneOk()));
+  consentInput.addEventListener("change", () => setInvalid(consentInput, !consentInput.checked));
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -652,11 +654,13 @@ if (!reduceMotion) {
     const emailValid = emailOk();
     const phoneValid = phoneOk();
     const hasContact = (email && emailValid) || (phoneRaw && phoneValid);
-    const valid = Boolean(name) && emailValid && phoneValid && hasContact;
+    const consentGiven = consentInput.checked;
+    const valid = Boolean(name) && emailValid && phoneValid && hasContact && consentGiven;
 
     setInvalid(nameInput, !name);
     setInvalid(emailInput, Boolean(email) && !emailValid);
     setInvalid(phoneInput, Boolean(phoneRaw) && !phoneValid);
+    setInvalid(consentInput, !consentGiven);
     errorEl.hidden = valid;
 
     if (!valid) return;
@@ -668,6 +672,7 @@ if (!reduceMotion) {
       email: email || null,
       phone: phoneRaw ? (iti ? iti.getNumber() : phoneRaw) : null,
       message: messageInput.value.trim() || null,
+      consent: consentGiven,
     });
 
     formState.classList.add("is-hiding");

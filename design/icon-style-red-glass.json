@@ -1,0 +1,122 @@
+{
+  "name": "Praktis — красное стекло, изометрия",
+  "version": "1.1",
+  "updated": "2026-10-14",
+  "purpose": "Единый стиль 3D-иконок сервисов Praktis (assets/services). Корпоративный стеклянный стиль: красное полупрозрачное стекло + молочно-белые детали.",
+  "style": {
+    "render": "3D render, glassmorphism, clean product-icon look, high detail, soft studio lighting, no text, no logos",
+    "projection": {
+      "type": "isometric-like three-quarter view",
+      "camera": "slightly from above, object rotated ~30° to the right, gentle perspective (not flat orthographic)",
+      "framing": "single object centered, fills ~80% of the square canvas, small even margin, nothing cropped"
+    },
+    "materials": {
+      "primary_glass": {
+        "description": "sandblasted frosted red glass, satin matte finish, semi-opaque, light diffuses softly inside; NOT jelly, NOT gummy, NOT glossy candy",
+        "base_color": "#CF3A40",
+        "highlight_color": "#F7B3B5",
+        "deep_color": "#B32F35",
+        "opacity": "semi-opaque (~60–70% coverage); you can NOT clearly see through it — only a soft milky glow",
+        "surface": "satin matte frosted surface, no glossy top coat, no wet look; highlights are wide, soft and blurred, never sharp specular streaks",
+        "edge_glow": "thin edges and bevels glow lighter pinkish-white, soft gradient from bright edge to saturated center",
+        "inner_light": "even soft red-pink internal scattering, no orange/amber hot spots"
+      },
+      "secondary_milk_glass": {
+        "description": "matte milky white frosted glass, like sandblasted acrylic, soft and diffuse (like the phone handset and speech bubble in the reference)",
+        "base_color": "#FFFFFF",
+        "tint": "very faint pink reflection from nearby red glass",
+        "opacity": "90–95%"
+      },
+      "accent_details": {
+        "description": "small glossy red glass beads/dots/buttons",
+        "base_color": "#CF3A40"
+      },
+      "forbidden_colors": [
+        "any blue",
+        "cyan",
+        "purple",
+        "green",
+        "yellow",
+        "brown",
+        "orange",
+        "cool grey"
+      ]
+    },
+    "geometry": {
+      "shapes": "chunky, soft, inflated volumes; all corners and edges generously rounded and beveled",
+      "edge_bevel": "thick rounded bevel that catches a bright rim light",
+      "layering": "symbol elements float slightly above or are embossed on the main red glass body, visible depth between layers",
+      "detail_level": "simple readable silhouette, max 2–3 elements per icon"
+    },
+    "lighting": {
+      "key": "large very soft diffuse light from top-left (big softbox)",
+      "rim": "soft broad light along beveled edges, blurred, not sharp lines",
+      "inner_glow": "gentle even pink-red scattering, brighter toward edges, no orange",
+      "shadows": "very soft, diffuse contact shadow only; no hard cast shadows",
+      "specular": "diffuse only — no sharp reflections, no hotspots, no glossy streaks"
+    },
+    "color_palette": {
+      "red_main": "#CF3A40",
+      "red_light": "#F2898D",
+      "red_dark": "#B32F35",
+      "milk_white": "#FFFFFF",
+      "background": "#F6F6F6"
+    },
+    "background": {
+      "for_generation": "plain flat light grey #F6F6F6, no gradient, no floor, no props",
+      "final_asset": "transparent PNG, 360×360"
+    }
+  },
+  "negative_prompt": "blue, purple, green, yellow, brown, orange, multicolor, cartoon clay matte plastic, flat 2D, outline icon, text, letters, numbers (except the ruble sign on the coin), logo, watermark, hard shadows, busy background, photorealistic scene, people, hands with skin, jelly, gummy candy, gelatin, wet look, glossy lacquer, sharp specular highlights, reflective streaks, orange or amber glow inside, deep see-through transparency",
+  "prompt_template": "3D isometric icon of {subject}. Made of sandblasted frosted red glass (#CF3A40): satin matte, semi-opaque, soft diffuse light scattering inside, edges and bevels glowing softly pinkish-white; symbol details in matte milky white frosted acrylic. Very soft diffuse studio light from top-left, wide blurred highlights only, no sharp reflections, very soft contact shadow. Single centered object on plain light grey #F6F6F6 background. Clean corporate glassmorphism style, no text. Not jelly, not gummy, not glossy.",
+  "icons": [
+    {
+      "file": "icon-02.png",
+      "service": "БРИО",
+      "subject": "a document folder with a small isometric cube emblem on the front (red glass folder, milky white sheets and cube emblem)"
+    },
+    {
+      "file": "icon-03.png",
+      "service": "Praktis.KS",
+      "subject": "a calculator (red glass body, milky white rounded buttons, one red glass display strip)"
+    },
+    {
+      "file": "icon-04.png",
+      "service": "Личный кабинет контрагента",
+      "subject": "a handshake of two stylized hands (one hand milky white glass, the other red glass), simple chunky shapes, no skin tones"
+    },
+    {
+      "file": "icon-05.png",
+      "service": "Praktis.Справочники / НСИ",
+      "subject": "a spiral notebook / reference book (red glass cover, milky white rings and two milky white label bars)"
+    },
+    {
+      "file": "icon-06.png",
+      "service": "Praktis.Object",
+      "subject": "a small group of city buildings / towers on a square base plate (towers in red glass of different heights, base plate in milky white glass)"
+    },
+    {
+      "file": "icon-07.png",
+      "service": "Praktis.ID",
+      "subject": "a briefcase (red glass body, milky white handle and clasp)"
+    },
+    {
+      "file": "icon-08.png",
+      "service": "Тендерная площадка",
+      "subject": "a trophy cup with two handles on a round base (red glass cup, milky white base and rim)"
+    },
+    {
+      "file": "icon-09.png",
+      "service": "ICONA",
+      "subject": "an analytics board with a pie chart and a small bar chart (milky white glass board, red glass chart segments and bars)"
+    },
+    {
+      "file": "icon-12.png",
+      "service": "Praktis.Finance",
+      "subject": "a stack of coins with a ruble sign ₽ on the top coin (red glass coins, milky white ₽ sign)"
+    }
+  ],
+  "changelog": [
+    "1.1 (2026-10-14): убран эффект «мармеладки» — матовое пескоструйное стекло вместо глянца, размытые блики, меньше прозрачности, без оранжевого свечения внутри"
+  ]
+}

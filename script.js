@@ -219,7 +219,7 @@
     return near.concat(far);
   }
 
-  // Hex mirrors --accent in styles.css: var() support inside
+  // Hex mirrors --red-main in styles.css: var() support inside
   // freshly-created SVG nodes is inconsistent, so it stays in sync by
   // hand. Every line and every endpoint dot share the same color.
   // Just the per-tile connector lines — the node's own dot is added
@@ -229,13 +229,13 @@
   function buildStageSteps(stage, trackRect) {
     const items = buildConnectors(stage, trackRect);
     return items.map((item) => {
-      const path = svgEl("path", { d: item.d, fill: "none", stroke: "#3c83f6", "stroke-width": "1.5" });
+      const path = svgEl("path", { d: item.d, fill: "none", stroke: "#cf3a40", "stroke-width": "1.5" });
       svg.appendChild(path);
       const len = path.getTotalLength();
       path.style.strokeDasharray = String(len);
       path.style.strokeDashoffset = stage.triggered ? "0" : String(len);
 
-      const marker = svgEl("circle", { cx: item.mx, cy: item.my, r: "3", fill: "#3c83f6" });
+      const marker = svgEl("circle", { cx: item.mx, cy: item.my, r: "3", fill: "#cf3a40" });
       marker.style.opacity = stage.triggered ? "1" : "0";
       svg.appendChild(marker);
 
@@ -277,7 +277,7 @@
     stages.forEach((stage) => {
       stage.nodeT = lineRangeX > 0 ? (stage.nx - lineFirstX) / lineRangeX : 0;
       stage.steps = buildStageSteps(stage, trackRect);
-      svg.appendChild(svgEl("circle", { cx: stage.nx, cy: stage.ny, r: "4", fill: "#3c83f6" }));
+      svg.appendChild(svgEl("circle", { cx: stage.nx, cy: stage.ny, r: "4", fill: "#cf3a40" }));
     });
   }
 
@@ -1028,6 +1028,7 @@
   const emailInput = document.getElementById("joinEmail");
   const phoneInput = document.getElementById("joinPhone");
   const messageInput = document.getElementById("joinMessage");
+  const consentInput = document.getElementById("joinConsent");
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const OPEN_DELAY = reduceMotion ? 0 : 20;
@@ -1111,7 +1112,7 @@
     if (iti) iti.setCountry("ru");
     autoGrow();
     errorEl.hidden = true;
-    [nameInput, emailInput, phoneInput].forEach((el) => setInvalid(el, false));
+    [nameInput, emailInput, phoneInput, consentInput].forEach((el) => setInvalid(el, false));
     successState.hidden = true;
     successState.classList.remove("is-shown");
     formState.hidden = false;
@@ -1163,6 +1164,7 @@
   // a typo surfaces as soon as you tab away instead of only at submit.
   emailInput.addEventListener("blur", () => setInvalid(emailInput, !emailOk()));
   phoneInput.addEventListener("blur", () => setInvalid(phoneInput, !phoneOk()));
+  consentInput.addEventListener("change", () => setInvalid(consentInput, !consentInput.checked));
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -1174,11 +1176,13 @@
     const emailValid = emailOk();
     const phoneValid = phoneOk();
     const hasContact = (email && emailValid) || (phoneRaw && phoneValid);
-    const valid = Boolean(name) && emailValid && phoneValid && hasContact;
+    const consentGiven = consentInput.checked;
+    const valid = Boolean(name) && emailValid && phoneValid && hasContact && consentGiven;
 
     setInvalid(nameInput, !name);
     setInvalid(emailInput, Boolean(email) && !emailValid);
     setInvalid(phoneInput, Boolean(phoneRaw) && !phoneValid);
+    setInvalid(consentInput, !consentGiven);
     errorEl.hidden = valid;
 
     if (!valid) return;
@@ -1190,6 +1194,7 @@
       email: email || null,
       phone: phoneRaw ? (iti ? iti.getNumber() : phoneRaw) : null,
       message: messageInput.value.trim() || null,
+      consent: consentGiven,
     });
 
     formState.classList.add("is-hiding");
